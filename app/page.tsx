@@ -64,13 +64,13 @@ export default function Home() {
               transition={{ delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2"
             >
-              <Link href="/register" className="w-full sm:w-auto">
+              <Link href="/Register" className="w-full sm:w-auto">
                 <button className="group w-full sm:w-auto bg-slate-900 text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-slate-800 transition shadow-lg shadow-slate-200">
                   Register Complaint
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform shrink-0" />
                 </button>
               </Link>
-              <Link href="/status" className="w-full sm:w-auto">
+              <Link href="/Status" className="w-full sm:w-auto">
                 <button className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-semibold text-slate-700 border-2 border-slate-200 hover:border-slate-300 transition">
                   Status
                 </button>
