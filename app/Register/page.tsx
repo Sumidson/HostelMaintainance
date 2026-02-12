@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Wrench, Sparkles, ArrowRight, Clock, CheckCircle } from "lucide-react";
 import Navbar from "../navbar";
-
+import { signUp } from "aws-amplify/auth";
+import { useState } from "react";
 export default function ComplaintPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">

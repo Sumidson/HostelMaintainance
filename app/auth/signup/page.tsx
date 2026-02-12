@@ -3,66 +3,99 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { GraduationCap, Users, Mail, Lock, ArrowRight, Eye, EyeOff, User, Phone, Building } from "lucide-react";
+import {
+  GraduationCap,
+  Users,
+  Mail,
+  Lock,
+  ArrowRight,
+  Eye,
+  EyeOff,
+  User,
+  Phone,
+  Building,
+} from "lucide-react";
 import Navbar from "../../navbar";
+import { signUp } from "aws-amplify/auth";
 
 export default function Signup() {
   const [userType, setUserType] = useState<"student" | "faculty" | null>(null);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     password: "",
     confirmPassword: "",
-    studentId: "", // for students
-    department: "", // for faculty
+    studentId: "",
+    department: "",
     block: "",
-    roomNumber: ""
+    roomNumber: "",
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const blocks = [
-    "N Block", "P Block", "K Block",
-    "C1 Block", "C2 Block", "C3 Block", "C4 Block", "C5 Block",
-    "C6 Block", "C7 Block", "C8 Block", "C9 Block", "C10 Block", "C11 Block",
-    "D1 Block", "D2 Block", "D3 Block", "D4 Block", "D5 Block", "D6 Block", "D7 Block",
-    "A Block", "B Block"
+    "N Block","P Block","K Block",
+    "C1 Block","C2 Block","C3 Block","C4 Block","C5 Block",
+    "C6 Block","C7 Block","C8 Block","C9 Block","C10 Block","C11 Block",
+    "D1 Block","D2 Block","D3 Block","D4 Block","D5 Block","D6 Block","D7 Block",
+    "A Block","B Block"
   ];
 
   const departments = [
-    "Computer Science", "Electronics", "Mechanical", "Civil",
-    "Management", "Biotechnology", "Administration", "Other"
+    "Computer Science","Electronics","Mechanical","Civil",
+    "Management","Biotechnology","Administration","Other"
   ];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    if (!userType) {
+      alert("Please select account type first.");
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords don't match!");
       return;
     }
 
     setIsLoading(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    console.log({
-      userType,
-      ...formData
-    });
-    
-    setIsLoading(false);
-    alert(`${userType === "student" ? "Student" : "Faculty"} account created successfully!`);
+
+    try {
+      await signUp({
+        username: formData.email,
+        password: formData.password,
+        options: {
+          userAttributes: {
+            email: formData.email,
+            phone_number: `+91${formData.phone.replace(/\D/g, "")}`,
+            "custom:role": userType,
+          },
+        },
+      });
+
+      alert("Account created! Please check your email to verify.");
+      setUserType(null);
+
+    } catch (error: any) {
+      console.error("Signup error:", error);
+      alert(error.message || "Signup failed");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -70,8 +103,7 @@ export default function Signup() {
       <Navbar />
 
       <div className="max-w-6xl mx-auto px-6 py-16">
-        
-        {/* User Type Selection */}
+
         {!userType ? (
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
@@ -93,8 +125,7 @@ export default function Signup() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              
-              {/* Student Signup Card */}
+
               <motion.button
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -126,7 +157,6 @@ export default function Signup() {
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-indigo-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </motion.button>
 
-              {/* Faculty Signup Card */}
               <motion.button
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -161,13 +191,12 @@ export default function Signup() {
             </div>
           </div>
         ) : (
-          /* Signup Form */
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="max-w-2xl mx-auto"
           >
-            {/* Back Button */}
+
             <button
               onClick={() => setUserType(null)}
               className="mb-8 text-slate-600 hover:text-slate-900 transition flex items-center gap-2"
@@ -176,10 +205,8 @@ export default function Signup() {
               Back to selection
             </button>
 
-            {/* Form Card */}
             <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8">
               
-              {/* Header */}
               <div className="text-center mb-8">
                 <div className={`inline-flex items-center justify-center w-16 h-16 ${userType === "student" ? "bg-indigo-100" : "bg-amber-100"} rounded-2xl mb-4`}>
                   {userType === "student" ? (
@@ -196,206 +223,87 @@ export default function Signup() {
                 </p>
               </div>
 
-              {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-5">
-                
-                {/* Full Name */}
-                <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-slate-900 mb-2">
-                    Full Name
-                  </label>
-                  <div className="relative">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Enter your full name"
-                      required
-                      className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
-                    />
-                  </div>
+
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
+                  />
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-5">
-                  {/* Email */}
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-slate-900 mb-2">
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder={userType === "student" ? "student@bennett.edu.in" : "faculty@bennett.edu.in"}
-                        required
-                        className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Phone */}
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-semibold text-slate-900 mb-2">
-                      Phone Number
-                    </label>
-                    <div className="relative">
-                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="+91 XXXXXXXXXX"
-                        required
-                        className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
-                      />
-                    </div>
-                  </div>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder={userType === "student" ? "student@bennett.edu.in" : "faculty@bennett.edu.in"}
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
+                  />
                 </div>
 
-                {/* Student ID or Department */}
-                {userType === "student" ? (
-                  <div>
-                    <label htmlFor="studentId" className="block text-sm font-semibold text-slate-900 mb-2">
-                      Student ID
-                    </label>
-                    <input
-                      type="text"
-                      id="studentId"
-                      name="studentId"
-                      value={formData.studentId}
-                      onChange={handleChange}
-                      placeholder="E.g., 2021001234"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
-                    />
-                  </div>
-                ) : (
-                  <div>
-                    <label htmlFor="department" className="block text-sm font-semibold text-slate-900 mb-2">
-                      Department
-                    </label>
-                    <div className="relative">
-                      <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                      <select
-                        id="department"
-                        name="department"
-                        value={formData.department}
-                        onChange={handleChange}
-                        required
-                        className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900 bg-white"
-                      >
-                        <option value="">Select department</option>
-                        {departments.map((dept) => (
-                          <option key={dept} value={dept}>{dept}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                )}
-
-                <div className="grid md:grid-cols-2 gap-5">
-                  {/* Block */}
-                  <div>
-                    <label htmlFor="block" className="block text-sm font-semibold text-slate-900 mb-2">
-                      Block
-                    </label>
-                    <select
-                      id="block"
-                      name="block"
-                      value={formData.block}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900 bg-white"
-                    >
-                      <option value="">Select block</option>
-                      {blocks.map((block) => (
-                        <option key={block} value={block}>{block}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Room Number */}
-                  <div>
-                    <label htmlFor="roomNumber" className="block text-sm font-semibold text-slate-900 mb-2">
-                      Room Number
-                    </label>
-                    <input
-                      type="text"
-                      id="roomNumber"
-                      name="roomNumber"
-                      value={formData.roomNumber}
-                      onChange={handleChange}
-                      placeholder="E.g., 204"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
-                    />
-                  </div>
+                <div className="relative">
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="+91 XXXXXXXXXX"
+                    required
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
+                  />
                 </div>
 
-                {/* Password */}
-                <div>
-                  <label htmlFor="password" className="block text-sm font-semibold text-slate-900 mb-2">
-                    Password
-                  </label>
-                  <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      id="password"
-                      name="password"
-                      value={formData.password}
-                      onChange={handleChange}
-                      placeholder="Create a strong password"
-                      required
-                      className="w-full pl-12 pr-12 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
-                    >
-                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                    </button>
-                  </div>
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="Create a strong password"
+                    required
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="w-full pl-12 pr-12 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
                 </div>
 
-                {/* Confirm Password */}
-                <div>
-                  <label htmlFor="confirmPassword" className="block text-sm font-semibold text-slate-900 mb-2">
-                    Confirm Password
-                  </label>
-                  <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                    <input
-                      type={showConfirmPassword ? "text" : "password"}
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      value={formData.confirmPassword}
-                      onChange={handleChange}
-                      placeholder="Re-enter your password"
-                      required
-                      className="w-full pl-12 pr-12 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
-                    >
-                      {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                    </button>
-                  </div>
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    placeholder="Re-enter your password"
+                    required
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    className="w-full pl-12 pr-12 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                  >
+                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
                 </div>
 
-                {/* Terms & Conditions */}
                 <div className="flex items-start gap-3">
                   <input 
                     type="checkbox" 
@@ -415,7 +323,6 @@ export default function Signup() {
                   </label>
                 </div>
 
-                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isLoading}
@@ -426,7 +333,6 @@ export default function Signup() {
                 </button>
               </form>
 
-              {/* Divider */}
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-slate-200"></div>
@@ -436,7 +342,6 @@ export default function Signup() {
                 </div>
               </div>
 
-              {/* Login Link */}
               <Link href="/login">
                 <button className="w-full py-3 rounded-xl font-semibold text-slate-700 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition">
                   Sign In
