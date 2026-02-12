@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { Amplify } from "aws-amplify";
+import { Toaster } from "react-hot-toast";
 
 export default function AmplifyProvider({
   children,
@@ -19,5 +20,10 @@ export default function AmplifyProvider({
     });
   }, []);
 
-  return <>{children}</>;
+  return (
+    <>
+      <Toaster position="top-center" />
+      {children}
+    </>
+  );
 }

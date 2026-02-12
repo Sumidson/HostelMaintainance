@@ -14,14 +14,21 @@ import {
   EyeOff,
   User,
   Phone,
-  Building,
+  Key,
+  Shield,
+  CheckCircle,
 } from "lucide-react";
 import Navbar from "../../navbar";
-import { signUp } from "aws-amplify/auth";
+import { signUp, confirmSignUp, signIn } from "aws-amplify/auth";
+import toast from "react-hot-toast";
 
 export default function Signup() {
   const router = useRouter();
   const [userType, setUserType] = useState<"student" | "faculty" | null>(null);
+
+  // Verification state
+  const [verificationStep, setVerificationStep] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -40,16 +47,16 @@ export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
 
   const blocks = [
-    "N Block","P Block","K Block",
-    "C1 Block","C2 Block","C3 Block","C4 Block","C5 Block",
-    "C6 Block","C7 Block","C8 Block","C9 Block","C10 Block","C11 Block",
-    "D1 Block","D2 Block","D3 Block","D4 Block","D5 Block","D6 Block","D7 Block",
-    "A Block","B Block"
+    "N Block", "P Block", "K Block",
+    "C1 Block", "C2 Block", "C3 Block", "C4 Block", "C5 Block",
+    "C6 Block", "C7 Block", "C8 Block", "C9 Block", "C10 Block", "C11 Block",
+    "D1 Block", "D2 Block", "D3 Block", "D4 Block", "D5 Block", "D6 Block", "D7 Block",
+    "A Block", "B Block"
   ];
 
   const departments = [
-    "Computer Science","Electronics","Mechanical","Civil",
-    "Management","Biotechnology","Administration","Other"
+    "Computer Science", "Electronics", "Mechanical", "Civil",
+    "Management", "Biotechnology", "Administration", "Other"
   ];
 
   const handleChange = (
@@ -61,16 +68,16 @@ export default function Signup() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!userType) {
-      alert("Please select account type first.");
+      toast.error("Please select account type first.");
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match!");
+      toast.error("Passwords don't match!");
       return;
     }
 
@@ -89,11 +96,40 @@ export default function Signup() {
         },
       });
 
-      router.push(`/auth/verify?email=${encodeURIComponent(formData.email)}`);
+      toast.success("Signup successful! Please verify your email.");
+      setVerificationStep(true);
 
     } catch (error: any) {
       console.error("Signup error:", error);
-      alert(error.message || "Signup failed");
+      toast.error(error.message || "Signup failed");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      // 1. Confirm Sign Up
+      await confirmSignUp({
+        username: formData.email,
+        confirmationCode: verificationCode,
+      });
+
+      // 2. Auto Sign In
+      await signIn({
+        username: formData.email,
+        password: formData.password,
+      });
+
+      toast.success("Account verified & logged in!");
+      router.push("/");
+
+    } catch (error: any) {
+      console.error("Verification error:", error);
+      toast.error(error.message || "Verification failed");
     } finally {
       setIsLoading(false);
     }
@@ -108,14 +144,14 @@ export default function Signup() {
         {!userType ? (
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <motion.h1 
+              <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-5xl font-bold text-slate-900 mb-4"
               >
                 Create Your Account
               </motion.h1>
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
@@ -135,7 +171,7 @@ export default function Signup() {
                 className="group relative bg-white rounded-3xl border-2 border-slate-200 hover:border-indigo-500 transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl p-12 text-left"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity" />
-                
+
                 <div className="relative">
                   <div className="w-20 h-20 bg-indigo-100 group-hover:bg-indigo-500 rounded-2xl flex items-center justify-center mb-6 transition-colors">
                     <GraduationCap className="w-10 h-10 text-indigo-600 group-hover:text-white transition-colors" />
@@ -148,7 +184,7 @@ export default function Signup() {
                   <p className="text-slate-600 mb-6">
                     Create your student account to access hostel services and submit requests
                   </p>
-                  
+
                   <div className="flex items-center gap-2 text-sm text-indigo-600 font-semibold">
                     <span>Sign up as Student</span>
                     <ArrowRight className="w-4 h-4" />
@@ -166,7 +202,7 @@ export default function Signup() {
                 className="group relative bg-white rounded-3xl border-2 border-slate-200 hover:border-amber-500 transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl p-12 text-left"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-amber-50 to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity" />
-                
+
                 <div className="relative">
                   <div className="w-20 h-20 bg-amber-100 group-hover:bg-amber-500 rounded-2xl flex items-center justify-center mb-6 transition-colors">
                     <Users className="w-10 h-10 text-amber-600 group-hover:text-white transition-colors" />
@@ -179,7 +215,7 @@ export default function Signup() {
                   <p className="text-slate-600 mb-6">
                     Create your faculty account to manage hostel operations and oversee requests
                   </p>
-                  
+
                   <div className="flex items-center gap-2 text-sm text-amber-600 font-semibold">
                     <span>Sign up as Faculty</span>
                     <ArrowRight className="w-4 h-4" />
@@ -191,7 +227,8 @@ export default function Signup() {
 
             </div>
           </div>
-        ) : (
+        ) : !verificationStep ? (
+          // SIGNUP FORM
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -207,7 +244,7 @@ export default function Signup() {
             </button>
 
             <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8">
-              
+
               <div className="text-center mb-8">
                 <div className={`inline-flex items-center justify-center w-16 h-16 ${userType === "student" ? "bg-indigo-100" : "bg-amber-100"} rounded-2xl mb-4`}>
                   {userType === "student" ? (
@@ -224,7 +261,7 @@ export default function Signup() {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSignup} className="space-y-5">
 
                 <div className="relative">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -306,11 +343,11 @@ export default function Signup() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <input 
-                    type="checkbox" 
-                    id="terms" 
-                    required 
-                    className="w-4 h-4 rounded border-slate-300 mt-1" 
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    required
+                    className="w-4 h-4 rounded border-slate-300 mt-1"
                   />
                   <label htmlFor="terms" className="text-sm text-slate-600">
                     I agree to the{" "}
@@ -348,6 +385,70 @@ export default function Signup() {
                   Sign In
                 </button>
               </Link>
+            </div>
+          </motion.div>
+        ) : (
+          // VERIFICATION FORM (Inline)
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="max-w-md mx-auto"
+          >
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-indigo-100 rounded-3xl mb-6">
+                <Shield className="w-10 h-10 text-indigo-600" />
+              </div>
+
+              <h2 className="text-3xl font-bold text-slate-900 mb-3">
+                Verify Your Email
+              </h2>
+
+              <p className="text-slate-600">
+                We've sent a code to <span className="font-semibold text-slate-900">{formData.email}</span>
+              </p>
+            </div>
+
+            <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8">
+              <form onSubmit={handleVerify} className="space-y-6">
+
+                <div>
+                  <label className="block text-sm font-semibold text-slate-900 mb-2">
+                    Verification Code
+                  </label>
+                  <div className="relative">
+                    <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                    <input
+                      type="text"
+                      placeholder="Enter 6-digit code"
+                      className="w-full pl-12 pr-4 py-3.5 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:outline-none transition text-slate-900 text-lg font-mono tracking-wider"
+                      value={verificationCode}
+                      onChange={(e) => setVerificationCode(e.target.value)}
+                      maxLength={6}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 border-2 border-blue-100 rounded-xl p-4 flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <div className="text-sm text-blue-900">
+                    <p className="font-semibold mb-1">Check your inbox</p>
+                    <p className="text-blue-700">
+                      It may take a few minutes for the code to arrive.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-4 rounded-xl font-semibold text-lg transition shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? "Verifying..." : "Verify & Login"}
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+
+              </form>
             </div>
           </motion.div>
         )}
