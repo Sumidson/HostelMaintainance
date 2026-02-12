@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   GraduationCap,
   Users,
@@ -19,6 +20,7 @@ import Navbar from "../../navbar";
 import { signUp } from "aws-amplify/auth";
 
 export default function Signup() {
+  const router = useRouter();
   const [userType, setUserType] = useState<"student" | "faculty" | null>(null);
 
   const [formData, setFormData] = useState({
@@ -87,8 +89,7 @@ export default function Signup() {
         },
       });
 
-      alert("Account created! Please check your email to verify.");
-      setUserType(null);
+      router.push(`/auth/verify?email=${encodeURIComponent(formData.email)}`);
 
     } catch (error: any) {
       console.error("Signup error:", error);
@@ -342,7 +343,7 @@ export default function Signup() {
                 </div>
               </div>
 
-              <Link href="/login">
+              <Link href="/auth/login">
                 <button className="w-full py-3 rounded-xl font-semibold text-slate-700 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition">
                   Sign In
                 </button>
