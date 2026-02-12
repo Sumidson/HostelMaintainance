@@ -58,20 +58,18 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Middle Navigation (Only for student/faculty) */}
-        {isLoggedIn && role !== "worker" && (
-          <div className="hidden md:flex items-center gap-8">
-            <Link href="/Maintenance" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition">
-              Maintenance
-            </Link>
-            <Link href="/cleaning" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition">
-              Cleaning
-            </Link>
-            <Link href="/Status" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition">
-              Status
-            </Link>
-          </div>
-        )}
+        {/* Middle Navigation */}
+        <div className="hidden md:flex items-center gap-8">
+          <Link href="/Maintenance" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition">
+            Maintenance
+          </Link>
+          <Link href="/cleaning" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition">
+            Cleaning
+          </Link>
+          <Link href="/Status" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition">
+            Status
+          </Link>
+        </div>
 
         {/* Right Section */}
         <div className="flex items-center gap-4">
