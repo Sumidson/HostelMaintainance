@@ -12,7 +12,7 @@ export default function ComplaintPage() {
       <Navbar />
 
       <div className="max-w-5xl mx-auto px-6 py-16">
-        
+
         {/* Header */}
         <div className="text-center mb-16">
           <motion.div
@@ -23,8 +23,8 @@ export default function ComplaintPage() {
             <Sparkles className="w-4 h-4" />
             Quick & Easy Complaint Submission
           </motion.div>
-          
-          <motion.h1 
+
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -32,8 +32,8 @@ export default function ComplaintPage() {
           >
             What do you need help with?
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -45,7 +45,7 @@ export default function ComplaintPage() {
 
         {/* Service Options Grid */}
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
-          
+
           {/* Maintenance Card */}
           <Link href="/Maintenance">
             <motion.div
@@ -56,7 +56,7 @@ export default function ComplaintPage() {
             >
               {/* Background Gradient */}
               <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-slate-100 opacity-0 group-hover:opacity-100 transition-opacity" />
-              
+
               <div className="relative p-10">
                 {/* Icon */}
                 <div className="w-20 h-20 bg-slate-900 group-hover:bg-slate-800 rounded-2xl flex items-center justify-center mb-6 transition-all group-hover:scale-110">
@@ -70,7 +70,7 @@ export default function ComplaintPage() {
                 <p className="text-slate-600 mb-6 text-lg leading-relaxed">
                   Report issues with furniture, appliances, electrical, plumbing, WiFi, and other facilities
                 </p>
-                
+
                 {/* Features List */}
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-center gap-3 text-sm text-slate-700">
@@ -121,7 +121,7 @@ export default function ComplaintPage() {
             >
               {/* Background Gradient */}
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-green-50 opacity-0 group-hover:opacity-100 transition-opacity" />
-              
+
               <div className="relative p-10">
                 {/* Icon */}
                 <div className="w-20 h-20 bg-emerald-500 group-hover:bg-emerald-600 rounded-2xl flex items-center justify-center mb-6 transition-all group-hover:scale-110">
@@ -135,7 +135,7 @@ export default function ComplaintPage() {
                 <p className="text-slate-600 mb-6 text-lg leading-relaxed">
                   Schedule room cleaning, washroom cleaning, floor cleaning, and other sanitation services
                 </p>
-                
+
                 {/* Features List */}
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-center gap-3 text-sm text-slate-700">
@@ -179,7 +179,7 @@ export default function ComplaintPage() {
         </div>
 
         {/* Info Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
@@ -201,7 +201,7 @@ export default function ComplaintPage() {
         </motion.div>
 
         {/* Help Text */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}

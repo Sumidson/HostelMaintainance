@@ -19,14 +19,14 @@ import Navbar from "./navbar";
 export default function Home() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      
+
       {/* ===== NAVIGATION ===== */}
       <Navbar />
 
       {/* ===== HERO SECTION ===== */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-16 sm:pt-14 sm:pb-20 lg:pt-20 lg:pb-24">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          
+
           {/* LEFT: Content */}
           <div className="space-y-5 sm:space-y-8">
             <motion.div
@@ -38,7 +38,7 @@ export default function Home() {
               <span className="truncate">First digital maintenance platform for BU hostels</span>
             </motion.div>
 
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -49,7 +49,7 @@ export default function Home() {
               <span className="text-slate-400">Just solutions.</span>
             </motion.h1>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -58,7 +58,7 @@ export default function Home() {
               Report room issues, request cleaning, track maintenance—all in one simple dashboard. Built specifically for Bennett University hostel residents and staff.
             </motion.p>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
@@ -78,7 +78,7 @@ export default function Home() {
             </motion.div>
 
             {/* Stats */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -108,7 +108,7 @@ export default function Home() {
           >
             {/* Main Card with Connection Diagram */}
             <div className="relative w-full max-w-lg h-[380px] xl:h-[450px]">
-              
+
               {/* Symmetric triangle: A apex, B bottom-left, C bottom-center, D bottom-right */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none z-10" style={{ overflow: "visible" }}>
                 {/* A (50%, 16%) → B (20%, 68%) */}
@@ -215,19 +215,19 @@ export default function Home() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            <ProblemCard 
+            <ProblemCard
               icon={<Phone className="w-6 h-6" />}
               title="Multiple Calls"
               before="Call reception → Wait → Explain issue → Hope it's logged"
               after="Submit request with photos in 30 seconds"
             />
-            <ProblemCard 
+            <ProblemCard
               icon={<Mail className="w-6 h-6" />}
               title="Email Black Hole"
               before="Send email → No confirmation → No tracking → Follow up again"
               after="Real-time status updates and notifications"
             />
-            <ProblemCard 
+            <ProblemCard
               icon={<Clock className="w-6 h-6" />}
               title="Zero Visibility"
               before="No idea when it'll be fixed or who's working on it"
@@ -247,17 +247,17 @@ export default function Home() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
-            <StepCard 
+            <StepCard
               number="1"
               title="Report in Seconds"
               description="Choose issue type, add details, attach photos if needed. Takes less than a minute."
             />
-            <StepCard 
+            <StepCard
               number="2"
               title="Auto-Assignment"
               description="Your request is instantly assigned to the right team member based on priority and availability."
             />
-            <StepCard 
+            <StepCard
               number="3"
               title="Stay Updated"
               description="Get notifications at every step. See real-time status and estimated completion time."
@@ -275,7 +275,7 @@ export default function Home() {
           <p className="text-slate-300 text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">
             Join thousands of Bennett students already using HostelDesk to manage their room issues effortlessly.
           </p>
-          <Link href="/register" className="block">
+          <Link href="/Register" className="block">
             <button className="w-full sm:w-auto bg-white text-slate-900 px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-slate-100 transition shadow-xl">
               Get Started Free
             </button>
