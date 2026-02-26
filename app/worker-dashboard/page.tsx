@@ -236,7 +236,7 @@ export default function StaffDashboard() {
 
       <div className="max-w-7xl mx-auto px-6 py-8">
 
-        <h1 className="text-4xl font-bold mb-6 text-slate-900">
+        <h1 className="text-4xl sm:text-5xl font-black mb-6 tracking-tight text-slate-900">
           Staff Dashboard
         </h1>
 
@@ -244,11 +244,11 @@ export default function StaffDashboard() {
           <div className="text-slate-600 mb-6">Loading complaints...</div>
         )}
 
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div className="bg-white rounded-[32px] border border-slate-100 shadow-xl shadow-slate-200/40 p-4 sm:p-8 overflow-hidden">
 
           <table className="w-full text-slate-800">
 
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-600">
+            <thead className="bg-slate-50/50 border-b border-slate-100 text-slate-500 uppercase tracking-widest text-[11px] font-black">
               <tr>
                 <th className="py-3 px-4 text-left font-semibold">ID</th>
                 <th className="py-3 px-4 text-left font-semibold">Issue</th>
@@ -277,7 +277,7 @@ export default function StaffDashboard() {
                     {c.status === "pending" && (
 
                       <button
-                        className="bg-slate-900 text-white px-3 py-1 rounded-lg text-sm hover:bg-slate-800 transition-colors"
+                        className="bg-[#BAF1D4] text-[#064E3B] px-4 py-1.5 rounded-full text-xs font-bold hover:bg-emerald-300 transition-colors shadow-sm"
                         onClick={() => {
                           setSelectedComplaint(c);
                           setShowAssignModal(true);
@@ -291,7 +291,7 @@ export default function StaffDashboard() {
                     {c.status === "in-progress" && (
 
                       <button
-                        className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-emerald-700 transition-colors"
+                        className="bg-[#059669] text-white px-4 py-1.5 rounded-full text-xs font-bold hover:bg-emerald-700 transition-colors shadow-sm"
                         onClick={() =>
                           handleStatusChange(
                             c.id,
@@ -322,12 +322,12 @@ export default function StaffDashboard() {
 
         <div className="fixed inset-0 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm z-50">
 
-          <div className="bg-white p-6 rounded-xl w-full max-w-sm shadow-xl border border-slate-200">
+          <div className="bg-white p-8 rounded-[32px] w-full max-w-sm shadow-2xl border border-slate-100/60">
 
-            <h2 className="text-xl font-bold mb-4 text-slate-900">Select Worker</h2>
+            <h2 className="text-2xl font-black mb-6 tracking-tight text-slate-900">Select Worker</h2>
 
             <select
-              className="w-full border border-slate-300 rounded-lg p-3 text-slate-800 mb-4 focus:outline-none focus:ring-2 focus:ring-slate-900"
+              className="w-full px-5 py-4 border border-slate-200 rounded-full text-slate-800 mb-6 bg-slate-50 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
               value={selectedWorker}
               onChange={(e) =>
                 setSelectedWorker(e.target.value)
@@ -342,15 +342,15 @@ export default function StaffDashboard() {
 
             </select>
 
-            <div className="flex justify-end gap-3 mt-2">
+            <div className="flex justify-end gap-3 mt-4">
               <button
-                className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors font-medium"
+                className="px-6 py-3 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-colors font-bold"
                 onClick={() => setShowAssignModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors font-medium disabled:opacity-50"
+                className="bg-emerald-400 text-emerald-950 px-6 py-3 rounded-full hover:bg-emerald-500 transition-all font-bold shadow-md hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleAssignWorker}
                 disabled={!selectedWorker}
               >

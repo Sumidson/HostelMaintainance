@@ -89,7 +89,7 @@ Details: ${desc || "None"}`,
 
   return (
 
-    <div className="min-h-screen bg-emerald-50">
+    <div className="min-h-screen bg-slate-50">
 
       <Navbar />
 
@@ -98,29 +98,29 @@ Details: ${desc || "None"}`,
         {/* Header */}
         <div className="text-center mb-8">
 
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-500 rounded-2xl mb-4">
-            <Sparkles className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-[#E5F7EB] rounded-full mb-6 border border-[#BAF1D4]">
+            <Sparkles className="w-10 h-10 text-[#059669]" />
           </div>
 
-          <h1 className="text-3xl font-bold text-slate-900">
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4 tracking-tight">
             Cleaning Request
           </h1>
 
-          <p className="text-slate-600">
+          <p className="text-slate-500 font-medium text-lg">
             Submit a cleaning request for your room or area
           </p>
 
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-2xl shadow-sm border">
+        <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 sm:p-12 rounded-[32px] shadow-xl shadow-slate-200/40 border border-slate-100/60">
 
           {/* Block */}
           <select
             value={block}
             onChange={e => setBlock(e.target.value)}
             required
-            className="w-full border p-3 rounded-xl text-slate-900 bg-white"
+            className="w-full px-5 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
           >
             <option value="">Select Block</option>
             {blocks.map(b => (
@@ -134,7 +134,7 @@ Details: ${desc || "None"}`,
             onChange={e => setRoom(e.target.value)}
             placeholder="Room Number"
             required
-            className="w-full border p-3 rounded-xl text-slate-900 bg-white"
+            className="w-full px-5 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
           />
 
           {/* Type */}
@@ -142,7 +142,7 @@ Details: ${desc || "None"}`,
             value={type}
             onChange={e => setType(e.target.value)}
             required
-            className="w-full border p-3 rounded-xl text-slate-900 bg-white"
+            className="w-full px-5 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
           >
             <option value="">Select Cleaning Type</option>
             {cleaningTypes.map(t => (
@@ -155,7 +155,7 @@ Details: ${desc || "None"}`,
             value={desc}
             onChange={e => setDesc(e.target.value)}
             placeholder="Additional details (optional)"
-            className="w-full border p-3 rounded-xl text-slate-900 bg-white"
+            className="w-full px-5 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
           />
 
           {/* Error */}
@@ -170,10 +170,10 @@ Details: ${desc || "None"}`,
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-emerald-500 text-white py-4 rounded-xl flex justify-center gap-2 disabled:opacity-50"
+            className="w-full bg-[#BAF1D4] hover:bg-emerald-300 text-[#064E3B] py-4 rounded-full font-bold text-lg transition shadow-xl hover:-translate-y-1 flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Submitting..." : "Submit Request"}
-            <Send />
+            <Send className="w-5 h-5" />
           </button>
 
         </form>

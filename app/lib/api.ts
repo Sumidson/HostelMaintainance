@@ -3,7 +3,7 @@ import { fetchAuthSession } from "aws-amplify/auth";
 /* ============================================
    API BASE URL (NO /$default needed)
 ============================================ */
-const API_BASE = "https://i5m5qyt01f.execute-api.eu-north-1.amazonaws.com";
+const API_BASE = "/api";
 
 
 /* ============================================

@@ -96,21 +96,21 @@ Details: ${description || "None"}`,
 
         <div className="text-center mb-12">
 
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-900 rounded-2xl mb-4">
-            <Wrench className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-[#E5F7EB] rounded-full mb-6 border border-[#BAF1D4]">
+            <Wrench className="w-10 h-10 text-[#059669]" />
           </div>
 
-          <h1 className="text-4xl font-bold text-slate-900 mb-3">
-            Register Maintenance Complaint
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4 tracking-tight">
+            Repair Request
           </h1>
 
-          <p className="text-slate-600">
+          <p className="text-slate-500 font-medium text-lg">
             Report your hostel maintenance issue
           </p>
 
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border p-8">
+        <div className="bg-white rounded-[32px] shadow-xl shadow-slate-200/40 border border-slate-100/60 p-8 sm:p-12">
 
           <form onSubmit={handleSubmit} className="space-y-6">
 
@@ -119,7 +119,7 @@ Details: ${description || "None"}`,
               value={selectedBlock}
               onChange={(e) => setSelectedBlock(e.target.value)}
               required
-              className="w-full px-4 py-3 border rounded-xl text-slate-900 bg-white"
+              className="w-full px-5 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
             >
               <option value="">Select Block</option>
               {blocks.map(b => (
@@ -133,7 +133,7 @@ Details: ${description || "None"}`,
               onChange={(e) => setRoomNumber(e.target.value)}
               placeholder="Room Number"
               required
-              className="w-full px-4 py-3 border rounded-xl text-slate-900 bg-white"
+              className="w-full px-5 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
             />
 
             {/* Phone */}
@@ -142,7 +142,7 @@ Details: ${description || "None"}`,
               onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="Phone Number"
               required
-              className="w-full px-4 py-3 border rounded-xl text-slate-900 bg-white"
+              className="w-full px-5 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
             />
 
             {/* Issue */}
@@ -150,7 +150,7 @@ Details: ${description || "None"}`,
               value={selectedIssue}
               onChange={(e) => setSelectedIssue(e.target.value)}
               required
-              className="w-full px-4 py-3 border rounded-xl text-slate-900 bg-white"
+              className="w-full px-5 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
             >
               <option value="">Select Issue</option>
               {issues.map(i => (
@@ -163,7 +163,7 @@ Details: ${description || "None"}`,
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Additional details (optional)"
-              className="w-full px-4 py-3 border rounded-xl text-slate-900 bg-white"
+              className="w-full px-5 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
             />
 
             {/* Error Message */}
@@ -178,7 +178,7 @@ Details: ${description || "None"}`,
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-slate-900 text-white py-4 rounded-xl flex justify-center items-center gap-2 disabled:opacity-50"
+              className="w-full bg-[#BAF1D4] hover:bg-emerald-300 text-[#064E3B] py-4 rounded-full font-bold text-lg transition shadow-xl hover:-translate-y-1 flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Submitting..." : "Submit Complaint"}
               <Send className="w-5 h-5" />

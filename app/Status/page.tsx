@@ -125,7 +125,7 @@ export default function StatusPage() {
 
       <div className="max-w-5xl mx-auto px-6 py-10">
 
-        <h1 className="text-4xl font-bold mb-8 text-slate-900">
+        <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-8 text-slate-900">
           My Requests
         </h1>
 
@@ -169,13 +169,14 @@ function Section({ title, complaints }: any) {
 
     <div className="mb-10 text-slate-900">
 
-      <h2 className="text-2xl font-bold mb-4 text-slate-900">
+      <h2 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
+        <div className="w-2 h-8 bg-emerald-400 rounded-full"></div>
         {title}
       </h2>
 
       {complaints.length === 0 && (
 
-        <div className="bg-white p-6 rounded-xl border text-slate-500">
+        <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm text-slate-500 text-center font-medium">
           No requests found
         </div>
 
@@ -190,14 +191,14 @@ function Section({ title, complaints }: any) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="bg-white p-6 rounded-xl border hover:shadow-md transition"
+            className="bg-white p-6 sm:p-8 rounded-[32px] border border-slate-100/80 shadow-sm hover:border-[#BAF1D4] hover:shadow-xl hover:shadow-[#BAF1D4]/40 transition-all duration-300"
           >
 
             <div className="flex justify-between items-start">
 
               <div>
 
-                <div className="font-bold text-lg text-slate-900">
+                <div className="font-black text-xl text-slate-900 tracking-tight">
                   {complaint.title}
                 </div>
 
@@ -245,19 +246,19 @@ function StatusBadge({ status }: { status: string }) {
 
     pending: {
       label: "Pending",
-      color: "bg-amber-100 text-amber-700",
+      color: "bg-amber-50 text-amber-600 border border-amber-100/50",
       icon: Clock
     },
 
     "in-progress": {
       label: "In Progress",
-      color: "bg-blue-100 text-blue-700",
+      color: "bg-blue-50 text-blue-600 border border-blue-100/50",
       icon: TrendingUp
     },
 
     completed: {
       label: "Completed",
-      color: "bg-emerald-100 text-emerald-700",
+      color: "bg-[#E5F7EB] text-[#059669] border border-[#BAF1D4]/50",
       icon: CheckCircle
     }
 
@@ -268,9 +269,8 @@ function StatusBadge({ status }: { status: string }) {
 
   return (
 
-    <div className={`px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1 ${color}`}>
-
-      <Icon className="w-4 h-4" />
+    <div className={`px-3 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-black flex items-center gap-1.5 ${color}`}>
+      <Icon className="w-3.5 h-3.5" />
 
       {label}
 
