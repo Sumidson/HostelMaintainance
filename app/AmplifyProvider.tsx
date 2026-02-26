@@ -17,6 +17,14 @@ export default function AmplifyProvider({
           userPoolClientId: "2hds26kjido6aiq60a7fcp7abc",
         },
       },
+      API: {
+        REST: {
+          HostelAPI: {
+            endpoint: "https://i5m5qyt01f.execute-api.eu-north-1.amazonaws.com/$default", // Corrected to base URL
+            region: "eu-north-1",
+          },
+        },
+      },
     });
   }, []);
 
