@@ -178,11 +178,23 @@ export default function Navbar() {
 
             {/* Auth actions in mobile menu */}
             {!isLoggedIn ? (
-              <Link href="/auth/signup" className="block px-3 py-3 mt-2" onClick={() => setIsMenuOpen(false)}>
-                <button className="w-full bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-5 py-3 rounded-lg text-base font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition shadow-sm">
-                  Sign Up
-                </button>
-              </Link>
+              <div className="flex flex-col gap-2 mt-2 px-3 pb-2">
+                <Link href="/auth/login" className="block" onClick={() => setIsMenuOpen(false)}>
+                  <button className="w-full bg-emerald-200 dark:bg-emerald-500 text-emerald-950 dark:text-emerald-50 px-5 py-3 rounded-xl text-base font-bold hover:bg-emerald-300 dark:hover:bg-emerald-400 transition shadow-sm">
+                    Log in
+                  </button>
+                </Link>
+                <Link href="/auth/signup" className="block" onClick={() => setIsMenuOpen(false)}>
+                  <button className="w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 px-5 py-3 rounded-xl text-base font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition shadow-sm">
+                    Sign up
+                  </button>
+                </Link>
+                <Link href="/auth/staff" className="block text-center mt-3 mb-1" onClick={() => setIsMenuOpen(false)}>
+                  <span className="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+                    Staff Login
+                  </span>
+                </Link>
+              </div>
             ) : (
               <>
                 <div className="border-t border-slate-100 dark:border-slate-800 my-2"></div>
