@@ -150,24 +150,24 @@ export default function ProfilePage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-3xl border shadow-lg overflow-hidden"
+            className="bg-white rounded-[32px] border border-slate-100 shadow-xl shadow-slate-200/40 overflow-hidden"
           >
 
-            <div className="bg-gradient-to-br from-indigo-500 to-blue-600 p-8 text-white text-center">
+            <div className="bg-gradient-to-br from-[#BAF1D4] to-emerald-300 p-8 sm:p-12 text-[#064E3B] text-center relative overflow-hidden">
 
-              <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
 
-                <User className="w-12 h-12 text-indigo-600" />
+                <User className="w-12 h-12 text-[#059669]" />
 
               </div>
 
-              <h2 className="text-2xl font-bold">
+              <h2 className="text-3xl font-black tracking-tight mt-2">
 
                 {user.name}
 
               </h2>
 
-              <p className="text-indigo-100 text-sm">
+              <p className="text-[#064E3B]/80 font-bold mt-1">
 
                 ID: {user.studentId}
 
@@ -209,9 +209,9 @@ export default function ProfilePage() {
 
             </div>
 
-            <div className="p-6 space-y-3">
+            <div className="p-8 sm:px-10 space-y-4">
 
-              <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-900 text-white rounded-xl">
+              <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-[#BAF1D4] hover:bg-emerald-300 text-[#064E3B] rounded-full font-bold transition shadow-sm hover:shadow-md hover:-translate-y-0.5">
 
                 <Edit className="w-4 h-4" />
 
@@ -219,7 +219,7 @@ export default function ProfilePage() {
 
               </button>
 
-              <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 rounded-xl">
+              <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-slate-50 border border-slate-200 hover:bg-slate-100 text-slate-700 rounded-full font-bold transition">
 
                 <Settings className="w-4 h-4" />
 
@@ -229,7 +229,7 @@ export default function ProfilePage() {
 
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-red-200 text-red-600 rounded-xl"
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 border border-red-200 text-red-500 hover:bg-red-50 hover:text-red-600 rounded-full font-bold transition mt-2"
               >
 
                 <LogOut className="w-4 h-4" />
@@ -272,10 +272,10 @@ export default function ProfilePage() {
 
             {/* QUICK ACTIONS */}
 
-            <div className="bg-white p-6 rounded-xl border">
+            <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm">
 
-              <h3 className="text-xl font-bold mb-4">
-
+              <h3 className="text-2xl font-black mb-6 tracking-tight text-slate-900 flex items-center gap-3">
+                <div className="w-2 h-8 bg-emerald-400 rounded-full"></div>
                 Quick Actions
 
               </h3>
@@ -283,18 +283,18 @@ export default function ProfilePage() {
               <div className="grid md:grid-cols-2 gap-4">
 
                 <a
-                  href="/maintenance"
-                  className="bg-slate-900 text-white p-6 rounded-xl"
+                  href="/Maintenance"
+                  className="bg-emerald-50 text-[#059669] p-8 rounded-[24px] hover:bg-emerald-100 transition flex flex-col items-center justify-center gap-3 text-center font-bold border border-emerald-100"
                 >
-                  <Wrench />
+                  <Wrench className="w-8 h-8" />
                   New Maintenance Request
                 </a>
 
                 <a
                   href="/cleaning"
-                  className="bg-emerald-500 text-white p-6 rounded-xl"
+                  className="bg-teal-50 text-teal-700 p-8 rounded-[24px] hover:bg-teal-100 transition flex flex-col items-center justify-center gap-3 text-center font-bold border border-teal-100"
                 >
-                  <Sparkles />
+                  <Sparkles className="w-8 h-8" />
                   Request Cleaning
                 </a>
 
@@ -304,23 +304,25 @@ export default function ProfilePage() {
 
             {/* ACCOUNT STATUS */}
 
-            <div className="bg-indigo-50 border p-6 rounded-xl">
+            <div className="bg-[#E5F7EB] border border-[#BAF1D4] p-8 rounded-[32px]">
 
-              <div className="flex gap-3">
+              <div className="flex gap-4 items-center">
 
-                <Shield className="text-indigo-600" />
+                <div className="p-3 bg-white rounded-full">
+                  <Shield className="text-[#059669] w-8 h-8" />
+                </div>
 
                 <div>
 
-                  <h4 className="font-bold">
+                  <h4 className="font-black text-xl text-slate-900 tracking-tight">
 
                     Account Verified
 
                   </h4>
 
-                  <p className="text-sm text-slate-600">
+                  <p className="text-slate-500 font-medium">
 
-                    Logged in using Cognito
+                    Logged in securely
 
                   </p>
 
@@ -378,17 +380,19 @@ function StatCard({ icon, label, value }: any) {
 
   return (
 
-    <div className="bg-white p-6 rounded-xl border">
+    <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm flex flex-col items-center text-center gap-3">
 
-      {icon}
+      <div className="text-slate-400">
+        {icon}
+      </div>
 
-      <div className="text-3xl font-bold">
+      <div className="text-4xl font-black text-slate-900">
 
         {value}
 
       </div>
 
-      <div className="text-sm text-slate-600">
+      <div className="text-sm font-bold text-slate-500 uppercase tracking-wider">
 
         {label}
 

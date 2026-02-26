@@ -85,14 +85,14 @@ export default function Login() {
         {!userType ? (
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <motion.h1 
+              <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-5xl font-bold text-slate-900 mb-4"
+                className="text-5xl font-black text-slate-900 mb-4 tracking-tight"
               >
                 Welcome Back
               </motion.h1>
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
@@ -110,22 +110,22 @@ export default function Login() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 onClick={() => setUserType("student")}
-                className="group relative bg-white rounded-3xl border-2 border-slate-200 hover:border-indigo-500 transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl p-12 text-left"
+                className="group relative bg-white rounded-[32px] border border-slate-200 hover:border-emerald-400 transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-xl hover:shadow-[#BAF1D4]/40 p-12 text-left"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-50 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative">
-                  <div className="w-20 h-20 bg-indigo-100 group-hover:bg-indigo-500 rounded-2xl flex items-center justify-center mb-6 transition-colors">
-                    <GraduationCap className="w-10 h-10 text-indigo-600 group-hover:text-white transition-colors" />
+                  <div className="w-20 h-20 bg-emerald-100 group-hover:bg-emerald-400 rounded-full flex items-center justify-center mb-6 transition-colors">
+                    <GraduationCap className="w-10 h-10 text-emerald-700 group-hover:text-white transition-colors" />
                   </div>
-                  <h3 className="text-3xl font-bold text-slate-900 mb-3 flex items-center justify-between">
+                  <h3 className="font-black text-3xl text-slate-900 mb-3 flex items-center justify-between">
                     Student Login
-                    <ArrowRight className="w-6 h-6 text-slate-400 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-6 h-6 text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
                   </h3>
-                  <p className="text-slate-600">
+                  <p className="text-slate-500 font-medium">
                     Access your hostel dashboard and track complaints
                   </p>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-indigo-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </motion.button>
 
               {/* Faculty Card */}
@@ -134,22 +134,22 @@ export default function Login() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
                 onClick={() => setUserType("faculty")}
-                className="group relative bg-white rounded-3xl border-2 border-slate-200 hover:border-amber-500 transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl p-12 text-left"
+                className="group relative bg-white rounded-[32px] border border-slate-200 hover:border-teal-400 transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-xl hover:shadow-teal-100/40 p-12 text-left"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-50 to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-50 to-cyan-50 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative">
-                  <div className="w-20 h-20 bg-amber-100 group-hover:bg-amber-500 rounded-2xl flex items-center justify-center mb-6 transition-colors">
-                    <Users className="w-10 h-10 text-amber-600 group-hover:text-white transition-colors" />
+                  <div className="w-20 h-20 bg-teal-100 group-hover:bg-teal-400 rounded-full flex items-center justify-center mb-6 transition-colors">
+                    <Users className="w-10 h-10 text-teal-700 group-hover:text-white transition-colors" />
                   </div>
-                  <h3 className="text-3xl font-bold text-slate-900 mb-3 flex items-center justify-between">
+                  <h3 className="font-black text-3xl text-slate-900 mb-3 flex items-center justify-between">
                     Faculty Login
-                    <ArrowRight className="w-6 h-6 text-slate-400 group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-6 h-6 text-slate-400 group-hover:text-teal-500 group-hover:translate-x-1 transition-all" />
                   </h3>
-                  <p className="text-slate-600">
+                  <p className="text-slate-500 font-medium">
                     Manage hostel operations and review requests
                   </p>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-amber-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-teal-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </motion.button>
 
             </div>
@@ -162,16 +162,16 @@ export default function Login() {
           >
             <button
               onClick={() => setUserType(null)}
-              className="mb-8 text-slate-600 hover:text-slate-900 transition flex items-center gap-2"
+              className="mb-8 font-bold text-slate-500 hover:text-slate-900 transition flex items-center gap-2"
             >
               <ArrowRight className="w-4 h-4 rotate-180" />
               Back
             </button>
 
-            <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8">
+            <div className="bg-white rounded-[32px] shadow-xl shadow-slate-200/40 border border-slate-100/60 p-8 sm:p-12">
 
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-slate-900 mb-2">
+                <h2 className="text-3xl font-black text-slate-900 mb-2">
                   {userType === "student" ? "Student" : "Faculty"} Login
                 </h2>
               </div>
@@ -186,7 +186,7 @@ export default function Login() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
+                    className="w-full pl-12 pr-4 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
                   />
                 </div>
 
@@ -198,7 +198,7 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full pl-12 pr-12 py-3 rounded-xl border-2 border-slate-200 focus:border-slate-900 focus:outline-none transition text-slate-900"
+                    className="w-full pl-12 pr-12 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
                   />
                   <button
                     type="button"
@@ -211,7 +211,7 @@ export default function Login() {
 
                 <div className="flex justify-end">
                   <Link href="/auth/forgot-password">
-                    <span className="text-sm text-slate-600 hover:text-indigo-600 font-medium cursor-pointer">
+                    <span className="text-sm text-slate-600 hover:text-emerald-600 font-bold cursor-pointer">
                       Forgot password?
                     </span>
                   </Link>
@@ -220,11 +220,10 @@ export default function Login() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className={`w-full ${
-                    userType === "student"
-                      ? "bg-indigo-600 hover:bg-indigo-700 shadow-indigo-200"
-                      : "bg-amber-500 hover:bg-amber-600 shadow-amber-200"
-                  } text-white py-4 rounded-xl font-semibold text-lg transition shadow-lg`}
+                  className={`w-full ${userType === "student"
+                      ? "bg-emerald-300 hover:bg-emerald-400 shadow-emerald-200"
+                      : "bg-teal-300 hover:bg-teal-400 shadow-teal-200"
+                    } text-emerald-950 py-4 rounded-full font-bold text-lg transition shadow-xl hover:-translate-y-1`}
                 >
                   {isLoading ? "Signing in..." : "Sign In"}
                   <ArrowRight className="w-5 h-5 ml-2 inline" />
@@ -234,7 +233,7 @@ export default function Login() {
 
               <div className="text-center mt-6">
                 <Link href="/auth/signup">
-                  <span className="text-slate-600 hover:underline cursor-pointer">
+                  <span className="text-emerald-700 font-bold hover:underline cursor-pointer">
                     Create an Account
                   </span>
                 </Link>
