@@ -1,10 +1,39 @@
 "use client";
 
 import Link from "next/link";
-import { Wrench, Menu, X } from "lucide-react";
+import { Wrench, Menu, X, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchAuthSession, signOut } from "aws-amplify/auth";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
+
+function ThemeToggle() {
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  // useEffect only runs on the client, so now we can safely show the UI
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="w-10 h-10" />; // Placeholder to prevent layout shift
+  }
+
+  return (
+    <button
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className="p-2.5 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors mr-2"
+      aria-label="Toggle Dark Mode"
+    >
+      {theme === "dark" ? (
+        <Sun className="w-5 h-5" />
+      ) : (
+        <Moon className="w-5 h-5" />
+      )}
+    </button>
+  );
+}
 
 export default function Navbar() {
   const router = useRouter();
@@ -79,6 +108,7 @@ export default function Navbar() {
 
         {/* Right Section (Always visible auth buttons) */}
         <div className="flex items-center gap-3 z-50 relative">
+          <ThemeToggle />
           {!isLoggedIn ? (
             <>
               <Link href="/auth/staff" className="hidden lg:block text-xs font-medium text-slate-500 hover:text-slate-800 transition mr-2">
