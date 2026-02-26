@@ -23,7 +23,7 @@ function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2.5 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors mr-2"
+      className="p-2.5 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800/50 transition-colors mr-2"
       aria-label="Toggle Dark Mode"
     >
       {theme === "dark" ? (
@@ -70,7 +70,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="border-b border-slate-100 bg-white/90 backdrop-blur-md sticky top-0 z-50">
+    <nav className="border-b border-slate-100 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 transition-colors">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition z-50 relative">
@@ -88,20 +88,20 @@ export default function Navbar() {
               <circle cx="7.5" cy="7.5" r="2.5" />
             </svg>
           </div>
-          <div className="font-bold text-xl tracking-tight text-slate-900">
+          <div className="font-bold text-xl tracking-tight text-slate-900 dark:text-white">
             HostelDesk
           </div>
         </Link>
 
         {/* Desktop Navigation Links (Pill layout) */}
-        <div className="hidden md:flex items-center gap-1 bg-slate-50 border border-slate-100 p-1.5 rounded-full">
-          <Link href="/Maintenance" className="text-sm font-medium px-4 py-2 rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition">
+        <div className="hidden md:flex items-center gap-1 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50 p-1.5 rounded-full">
+          <Link href="/Maintenance" className="text-sm font-medium px-4 py-2 rounded-full text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/50 transition">
             Maintenance
           </Link>
-          <Link href="/cleaning" className="text-sm font-medium px-4 py-2 rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition">
+          <Link href="/cleaning" className="text-sm font-medium px-4 py-2 rounded-full text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/50 transition">
             Cleaning
           </Link>
-          <Link href="/Status" className="text-sm font-medium px-4 py-2 rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition">
+          <Link href="/Status" className="text-sm font-medium px-4 py-2 rounded-full text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/50 transition">
             Status
           </Link>
         </div>
@@ -111,28 +111,28 @@ export default function Navbar() {
           <ThemeToggle />
           {!isLoggedIn ? (
             <>
-              <Link href="/auth/staff" className="hidden lg:block text-xs font-medium text-slate-500 hover:text-slate-800 transition mr-2">
+              <Link href="/auth/staff" className="hidden lg:block text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition mr-2">
                 Staff
               </Link>
               <Link href="/auth/signup" className="hidden md:block">
-                <button className="text-slate-700 px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-slate-50 transition">
+                <button className="text-slate-700 dark:text-slate-300 px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition">
                   Sign up
                 </button>
               </Link>
               <Link href="/auth/login">
-                <button className="bg-emerald-200 text-emerald-950 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-emerald-300 transition shadow-sm">
+                <button className="bg-emerald-200 dark:bg-emerald-500 text-emerald-950 dark:text-emerald-50 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-emerald-300 dark:hover:bg-emerald-400 transition shadow-sm">
                   Log in
                 </button>
               </Link>
             </>
           ) : (
             <>
-              <Link href="/profile" className="hidden md:block text-sm font-medium text-slate-600 hover:text-slate-900 transition">
+              <Link href="/profile" className="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">
                 Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="hidden md:block bg-red-50 text-red-600 px-5 py-2 rounded-full text-sm font-semibold hover:bg-red-100 transition border border-red-100"
+                className="hidden md:block bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 px-5 py-2 rounded-full text-sm font-semibold hover:bg-red-100 dark:hover:bg-red-900/40 transition border border-red-100 dark:border-red-900/30"
               >
                 Log out
               </button>
@@ -142,7 +142,7 @@ export default function Navbar() {
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 -mr-2 text-slate-600 hover:text-slate-900 transition"
+            className="md:hidden p-2 -mr-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -152,25 +152,25 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       {isMenuOpen && (
-        <div className="md:hidden border-t border-slate-100 bg-white absolute top-full left-0 right-0 shadow-lg">
+        <div className="md:hidden border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 absolute top-full left-0 right-0 shadow-lg dark:shadow-slate-900/50">
           <div className="px-4 pt-2 pb-4 space-y-1 flex flex-col">
             <Link
               href="/Maintenance"
-              className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition"
+              className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition"
               onClick={() => setIsMenuOpen(false)}
             >
               Maintenance
             </Link>
             <Link
               href="/cleaning"
-              className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition"
+              className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition"
               onClick={() => setIsMenuOpen(false)}
             >
               Cleaning
             </Link>
             <Link
               href="/Status"
-              className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition"
+              className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition"
               onClick={() => setIsMenuOpen(false)}
             >
               Status
@@ -179,16 +179,16 @@ export default function Navbar() {
             {/* Auth actions in mobile menu */}
             {!isLoggedIn ? (
               <Link href="/auth/signup" className="block px-3 py-3 mt-2" onClick={() => setIsMenuOpen(false)}>
-                <button className="w-full bg-slate-900 text-white px-5 py-3 rounded-lg text-base font-medium hover:bg-slate-800 transition shadow-sm">
+                <button className="w-full bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-5 py-3 rounded-lg text-base font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition shadow-sm">
                   Sign Up
                 </button>
               </Link>
             ) : (
               <>
-                <div className="border-t border-slate-100 my-2"></div>
+                <div className="border-t border-slate-100 dark:border-slate-800 my-2"></div>
                 <Link
                   href="/profile"
-                  className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition"
+                  className="block px-3 py-3 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Profile
@@ -198,7 +198,7 @@ export default function Navbar() {
                     handleLogout();
                     setIsMenuOpen(false);
                   }}
-                  className="w-full mt-2 text-left px-3 py-3 rounded-md text-base font-medium text-red-600 hover:text-red-700 hover:bg-red-50 transition"
+                  className="w-full mt-2 text-left px-3 py-3 rounded-md text-base font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 transition"
                 >
                   Logout
                 </button>

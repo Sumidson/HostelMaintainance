@@ -51,23 +51,23 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 dark:from-slate-950 to-slate-100 dark:to-slate-900 transition-colors">
       <Navbar />
 
       <div className="max-w-md mx-auto px-6 py-16">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8"
+          className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl shadow-slate-200/40 dark:shadow-none border border-slate-200 dark:border-slate-800 p-8 transition-colors"
         >
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-2xl mb-4">
-              <Lock className="w-8 h-8 text-indigo-600" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 dark:bg-indigo-900/40 rounded-2xl mb-4">
+              <Lock className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
               Forgot Password
             </h1>
-            <p className="text-slate-600">
+            <p className="text-slate-600 dark:text-slate-400">
               {step === "request"
                 ? "Enter your email to receive a reset code."
                 : "Enter the code and your new password."}
@@ -84,14 +84,14 @@ export default function ForgotPasswordPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full pl-12 pr-4 py-3.5 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:outline-none transition text-slate-900"
+                  className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700/50 focus:border-indigo-500 dark:focus:border-indigo-500 bg-white dark:bg-slate-800/50 focus:outline-none transition text-slate-900 dark:text-white"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-4 rounded-xl font-semibold text-lg transition shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white py-4 rounded-xl font-semibold text-lg transition shadow-lg shadow-indigo-200 dark:shadow-indigo-900/40 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "Sending code..." : "Send reset code"}
                 <ArrowRight className="w-5 h-5" />
@@ -105,7 +105,7 @@ export default function ForgotPasswordPage() {
                   type="email"
                   value={email}
                   readOnly
-                  className="w-full pl-12 pr-4 py-3.5 rounded-xl border-2 border-slate-200 bg-slate-50 text-slate-500"
+                  className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400"
                 />
               </div>
 
@@ -118,7 +118,7 @@ export default function ForgotPasswordPage() {
                   onChange={(e) => setCode(e.target.value)}
                   maxLength={6}
                   required
-                  className="w-full pl-12 pr-4 py-3.5 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:outline-none transition text-slate-900 font-mono tracking-wider"
+                  className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700/50 focus:border-indigo-500 dark:focus:border-indigo-500 bg-white dark:bg-slate-800/50 focus:outline-none transition text-slate-900 dark:text-white font-mono tracking-wider"
                 />
               </div>
 
@@ -130,14 +130,14 @@ export default function ForgotPasswordPage() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
-                  className="w-full pl-12 pr-4 py-3.5 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:outline-none transition text-slate-900"
+                  className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700/50 focus:border-indigo-500 dark:focus:border-indigo-500 bg-white dark:bg-slate-800/50 focus:outline-none transition text-slate-900 dark:text-white"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-4 rounded-xl font-semibold text-lg transition shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white py-4 rounded-xl font-semibold text-lg transition shadow-lg shadow-indigo-200 dark:shadow-indigo-900/40 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "Resetting..." : "Reset password"}
                 <ArrowRight className="w-5 h-5" />

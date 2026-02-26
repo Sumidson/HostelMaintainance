@@ -137,7 +137,7 @@ export default function ProfilePage() {
 
   return (
 
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
 
       <Navbar />
 
@@ -150,14 +150,14 @@ export default function ProfilePage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-[32px] border border-slate-100 shadow-xl shadow-slate-200/40 overflow-hidden"
+            className="bg-white dark:bg-slate-900 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none overflow-hidden transition-colors"
           >
 
-            <div className="bg-gradient-to-br from-[#BAF1D4] to-emerald-300 p-8 sm:p-12 text-[#064E3B] text-center relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#BAF1D4] dark:from-emerald-900/40 to-emerald-300 dark:to-emerald-800/40 p-8 sm:p-12 text-[#064E3B] dark:text-emerald-50 text-center relative overflow-hidden">
 
-              <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+              <div className="w-24 h-24 bg-white dark:bg-slate-800/80 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm dark:shadow-none">
 
-                <User className="w-12 h-12 text-[#059669]" />
+                <User className="w-12 h-12 text-[#059669] dark:text-emerald-400" />
 
               </div>
 
@@ -167,7 +167,7 @@ export default function ProfilePage() {
 
               </h2>
 
-              <p className="text-[#064E3B]/80 font-bold mt-1">
+              <p className="text-[#064E3B]/80 dark:text-emerald-200 font-bold mt-1">
 
                 ID: {user.studentId}
 
@@ -211,7 +211,7 @@ export default function ProfilePage() {
 
             <div className="p-8 sm:px-10 space-y-4">
 
-              <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-[#BAF1D4] hover:bg-emerald-300 text-[#064E3B] rounded-full font-bold transition shadow-sm hover:shadow-md hover:-translate-y-0.5">
+              <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-[#BAF1D4] dark:bg-emerald-500/20 hover:bg-emerald-300 dark:hover:bg-emerald-500/30 text-[#064E3B] dark:text-emerald-400 rounded-full font-bold transition shadow-sm hover:shadow-md hover:-translate-y-0.5">
 
                 <Edit className="w-4 h-4" />
 
@@ -219,7 +219,7 @@ export default function ProfilePage() {
 
               </button>
 
-              <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-slate-50 border border-slate-200 hover:bg-slate-100 text-slate-700 rounded-full font-bold transition">
+              <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full font-bold transition">
 
                 <Settings className="w-4 h-4" />
 
@@ -229,7 +229,7 @@ export default function ProfilePage() {
 
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center justify-center gap-2 px-6 py-4 border border-red-200 text-red-500 hover:bg-red-50 hover:text-red-600 rounded-full font-bold transition mt-2"
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 border border-red-200 dark:border-red-900/30 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 hover:text-red-600 dark:hover:text-red-400 rounded-full font-bold transition mt-2"
               >
 
                 <LogOut className="w-4 h-4" />
@@ -272,9 +272,9 @@ export default function ProfilePage() {
 
             {/* QUICK ACTIONS */}
 
-            <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm">
+            <div className="bg-white dark:bg-slate-900 p-8 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none transition-colors">
 
-              <h3 className="text-2xl font-black mb-6 tracking-tight text-slate-900 flex items-center gap-3">
+              <h3 className="text-2xl font-black mb-6 tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
                 <div className="w-2 h-8 bg-emerald-400 rounded-full"></div>
                 Quick Actions
 
@@ -284,7 +284,7 @@ export default function ProfilePage() {
 
                 <a
                   href="/Maintenance"
-                  className="bg-emerald-50 text-[#059669] p-8 rounded-[24px] hover:bg-emerald-100 transition flex flex-col items-center justify-center gap-3 text-center font-bold border border-emerald-100"
+                  className="bg-emerald-50 dark:bg-emerald-900/20 text-[#059669] dark:text-emerald-400 p-8 rounded-[24px] hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition flex flex-col items-center justify-center gap-3 text-center font-bold border border-emerald-100 dark:border-emerald-900/30"
                 >
                   <Wrench className="w-8 h-8" />
                   New Maintenance Request
@@ -292,7 +292,7 @@ export default function ProfilePage() {
 
                 <a
                   href="/cleaning"
-                  className="bg-teal-50 text-teal-700 p-8 rounded-[24px] hover:bg-teal-100 transition flex flex-col items-center justify-center gap-3 text-center font-bold border border-teal-100"
+                  className="bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400 p-8 rounded-[24px] hover:bg-teal-100 dark:hover:bg-teal-900/40 transition flex flex-col items-center justify-center gap-3 text-center font-bold border border-teal-100 dark:border-teal-900/30"
                 >
                   <Sparkles className="w-8 h-8" />
                   Request Cleaning
@@ -304,23 +304,23 @@ export default function ProfilePage() {
 
             {/* ACCOUNT STATUS */}
 
-            <div className="bg-[#E5F7EB] border border-[#BAF1D4] p-8 rounded-[32px]">
+            <div className="bg-[#E5F7EB] dark:bg-emerald-900/20 border border-[#BAF1D4] dark:border-emerald-800/50 p-8 rounded-[32px] transition-colors">
 
               <div className="flex gap-4 items-center">
 
-                <div className="p-3 bg-white rounded-full">
-                  <Shield className="text-[#059669] w-8 h-8" />
+                <div className="p-3 bg-white dark:bg-emerald-900/40 rounded-full">
+                  <Shield className="text-[#059669] dark:text-emerald-400 w-8 h-8" />
                 </div>
 
                 <div>
 
-                  <h4 className="font-black text-xl text-slate-900 tracking-tight">
+                  <h4 className="font-black text-xl text-slate-900 dark:text-white tracking-tight">
 
                     Account Verified
 
                   </h4>
 
-                  <p className="text-slate-500 font-medium">
+                  <p className="text-slate-500 dark:text-slate-400 font-medium">
 
                     Logged in securely
 
@@ -356,13 +356,13 @@ function DetailRow({ icon, label, value }: any) {
 
       <div>
 
-        <div className="text-xs text-slate-500">
+        <div className="text-xs text-slate-500 dark:text-slate-400">
 
           {label}
 
         </div>
 
-        <div className="font-semibold">
+        <div className="font-semibold text-slate-900 dark:text-slate-100">
 
           {value}
 
@@ -380,19 +380,19 @@ function StatCard({ icon, label, value }: any) {
 
   return (
 
-    <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm flex flex-col items-center text-center gap-3">
+    <div className="bg-white dark:bg-slate-900 p-8 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none flex flex-col items-center text-center gap-3 transition-colors">
 
-      <div className="text-slate-400">
+      <div className="text-slate-400 dark:text-slate-500">
         {icon}
       </div>
 
-      <div className="text-4xl font-black text-slate-900">
+      <div className="text-4xl font-black text-slate-900 dark:text-white">
 
         {value}
 
       </div>
 
-      <div className="text-sm font-bold text-slate-500 uppercase tracking-wider">
+      <div className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
 
         {label}
 

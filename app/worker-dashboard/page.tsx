@@ -230,25 +230,25 @@ export default function StaffDashboard() {
 
   return (
 
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
 
       <Navbar />
 
       <div className="max-w-7xl mx-auto px-6 py-8">
 
-        <h1 className="text-4xl sm:text-5xl font-black mb-6 tracking-tight text-slate-900">
+        <h1 className="text-4xl sm:text-5xl font-black mb-6 tracking-tight text-slate-900 dark:text-white">
           Staff Dashboard
         </h1>
 
         {loading && (
-          <div className="text-slate-600 mb-6">Loading complaints...</div>
+          <div className="text-slate-600 dark:text-slate-400 mb-6">Loading complaints...</div>
         )}
 
-        <div className="bg-white rounded-[32px] border border-slate-100 shadow-xl shadow-slate-200/40 p-4 sm:p-8 overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none p-4 sm:p-8 overflow-hidden transition-colors">
 
-          <table className="w-full text-slate-800">
+          <table className="w-full text-slate-800 dark:text-slate-200">
 
-            <thead className="bg-slate-50/50 border-b border-slate-100 text-slate-500 uppercase tracking-widest text-[11px] font-black">
+            <thead className="bg-slate-50/50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400 uppercase tracking-widest text-[11px] font-black">
               <tr>
                 <th className="py-3 px-4 text-left font-semibold">ID</th>
                 <th className="py-3 px-4 text-left font-semibold">Issue</th>
@@ -258,26 +258,26 @@ export default function StaffDashboard() {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
 
               {filteredComplaints.map(c => (
 
-                <tr key={c.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={c.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
 
                   <td className="py-3 px-4">{c.id}</td>
 
-                  <td className="py-3 px-4 font-medium text-slate-900">{c.issue}</td>
+                  <td className="py-3 px-4 font-medium text-slate-900 dark:text-white">{c.issue}</td>
 
-                  <td className="py-3 px-4 text-slate-600">{c.block}</td>
+                  <td className="py-3 px-4 text-slate-600 dark:text-slate-400">{c.block}</td>
 
-                  <td className="py-3 px-4 capitalize text-slate-700">{c.status}</td>
+                  <td className="py-3 px-4 capitalize text-slate-700 dark:text-slate-300">{c.status}</td>
 
                   <td className="py-3 px-4">
 
                     {c.status === "pending" && (
 
                       <button
-                        className="bg-[#BAF1D4] text-[#064E3B] px-4 py-1.5 rounded-full text-xs font-bold hover:bg-emerald-300 transition-colors shadow-sm"
+                        className="bg-[#BAF1D4] dark:bg-emerald-900/30 text-[#064E3B] dark:text-emerald-400 px-4 py-1.5 rounded-full text-xs font-bold hover:bg-emerald-300 dark:hover:bg-emerald-800/50 transition-colors shadow-sm"
                         onClick={() => {
                           setSelectedComplaint(c);
                           setShowAssignModal(true);
@@ -320,14 +320,14 @@ export default function StaffDashboard() {
 
       {showAssignModal && (
 
-        <div className="fixed inset-0 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm z-50">
 
-          <div className="bg-white p-8 rounded-[32px] w-full max-w-sm shadow-2xl border border-slate-100/60">
+          <div className="bg-white dark:bg-slate-900 p-8 rounded-[32px] w-full max-w-sm shadow-2xl border border-slate-100/60 dark:border-slate-800 transition-colors">
 
-            <h2 className="text-2xl font-black mb-6 tracking-tight text-slate-900">Select Worker</h2>
+            <h2 className="text-2xl font-black mb-6 tracking-tight text-slate-900 dark:text-white">Select Worker</h2>
 
             <select
-              className="w-full px-5 py-4 border border-slate-200 rounded-full text-slate-800 mb-6 bg-slate-50 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
+              className="w-full px-5 py-4 border border-slate-200 dark:border-slate-700/50 rounded-full text-slate-800 dark:text-slate-200 mb-6 bg-slate-50 dark:bg-slate-800/50 focus:outline-none focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 dark:focus:ring-emerald-500/10"
               value={selectedWorker}
               onChange={(e) =>
                 setSelectedWorker(e.target.value)
@@ -344,13 +344,13 @@ export default function StaffDashboard() {
 
             <div className="flex justify-end gap-3 mt-4">
               <button
-                className="px-6 py-3 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-colors font-bold"
+                className="px-6 py-3 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/50 rounded-full transition-colors font-bold"
                 onClick={() => setShowAssignModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="bg-emerald-400 text-emerald-950 px-6 py-3 rounded-full hover:bg-emerald-500 transition-all font-bold shadow-md hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-emerald-400 dark:bg-emerald-500 text-emerald-950 dark:text-emerald-50 px-6 py-3 rounded-full hover:bg-emerald-500 dark:hover:bg-emerald-400 transition-all font-bold shadow-md hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleAssignWorker}
                 disabled={!selectedWorker}
               >

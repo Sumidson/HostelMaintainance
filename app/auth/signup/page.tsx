@@ -136,7 +136,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 dark:from-slate-950 to-slate-100 dark:to-slate-900 transition-colors">
       <Navbar />
 
       <div className="max-w-6xl mx-auto px-6 py-16">
@@ -147,7 +147,7 @@ export default function Signup() {
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-5xl font-black text-slate-900 mb-4 tracking-tight"
+                className="text-5xl font-black text-slate-900 dark:text-white mb-4 tracking-tight"
               >
                 Create Your Account
               </motion.h1>
@@ -155,7 +155,7 @@ export default function Signup() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-xl text-slate-600"
+                className="text-xl text-slate-600 dark:text-slate-400"
               >
                 Select your account type to get started
               </motion.p>
@@ -168,30 +168,30 @@ export default function Signup() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 onClick={() => setUserType("student")}
-                className="group relative bg-white rounded-[32px] border border-slate-200 hover:border-emerald-400 transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-xl hover:shadow-[#BAF1D4]/40 p-12 text-left"
+                className="group relative bg-white dark:bg-slate-900 rounded-[32px] border border-slate-200 dark:border-slate-800 hover:border-emerald-400 dark:hover:border-emerald-500/50 transition-all duration-300 overflow-hidden cursor-pointer shadow-sm dark:shadow-none hover:shadow-xl hover:shadow-[#BAF1D4]/40 dark:hover:shadow-emerald-900/20 p-12 text-left"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-50 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 dark:from-emerald-900/20 to-teal-50 dark:to-teal-900/10 opacity-0 group-hover:opacity-100 transition-opacity" />
 
                 <div className="relative">
-                  <div className="w-20 h-20 bg-emerald-100 group-hover:bg-emerald-400 rounded-full flex items-center justify-center mb-6 transition-colors">
-                    <GraduationCap className="w-10 h-10 text-emerald-700 group-hover:text-white transition-colors" />
+                  <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/40 group-hover:bg-emerald-400 dark:group-hover:bg-emerald-500/40 rounded-full flex items-center justify-center mb-6 transition-colors">
+                    <GraduationCap className="w-10 h-10 text-emerald-700 dark:text-emerald-400 group-hover:text-white dark:group-hover:text-emerald-100 transition-colors" />
                   </div>
 
-                  <h3 className="font-black text-3xl text-slate-900 mb-3 flex items-center justify-between">
+                  <h3 className="font-black text-3xl text-slate-900 dark:text-white mb-3 flex items-center justify-between">
                     Student Signup
-                    <ArrowRight className="w-6 h-6 text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-6 h-6 text-slate-400 dark:text-slate-500 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
                   </h3>
-                  <p className="text-slate-500 font-medium mb-6">
+                  <p className="text-slate-500 dark:text-slate-400 font-medium mb-6">
                     Create your student account to access hostel services and submit requests
                   </p>
 
-                  <div className="flex items-center gap-2 text-sm text-emerald-600 font-bold">
+                  <div className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 font-bold">
                     <span>Sign up as Student</span>
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-400 dark:bg-emerald-500/50 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </motion.button>
 
               <motion.button
@@ -199,30 +199,30 @@ export default function Signup() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
                 onClick={() => setUserType("faculty")}
-                className="group relative bg-white rounded-[32px] border border-slate-200 hover:border-teal-400 transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-xl hover:shadow-teal-100/40 p-12 text-left"
+                className="group relative bg-white dark:bg-slate-900 rounded-[32px] border border-slate-200 dark:border-slate-800 hover:border-teal-400 dark:hover:border-teal-500/50 transition-all duration-300 overflow-hidden cursor-pointer shadow-sm dark:shadow-none hover:shadow-xl hover:shadow-teal-100/40 dark:hover:shadow-teal-900/20 p-12 text-left"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-teal-50 to-cyan-50 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-50 dark:from-teal-900/20 to-cyan-50 dark:to-cyan-900/10 opacity-0 group-hover:opacity-100 transition-opacity" />
 
                 <div className="relative">
-                  <div className="w-20 h-20 bg-teal-100 group-hover:bg-teal-400 rounded-full flex items-center justify-center mb-6 transition-colors">
-                    <Users className="w-10 h-10 text-teal-700 group-hover:text-white transition-colors" />
+                  <div className="w-20 h-20 bg-teal-100 dark:bg-teal-900/40 group-hover:bg-teal-400 dark:group-hover:bg-teal-500/40 rounded-full flex items-center justify-center mb-6 transition-colors">
+                    <Users className="w-10 h-10 text-teal-700 dark:text-teal-400 group-hover:text-white dark:group-hover:text-teal-100 transition-colors" />
                   </div>
 
-                  <h3 className="font-black text-3xl text-slate-900 mb-3 flex items-center justify-between">
+                  <h3 className="font-black text-3xl text-slate-900 dark:text-white mb-3 flex items-center justify-between">
                     Faculty Signup
-                    <ArrowRight className="w-6 h-6 text-slate-400 group-hover:text-teal-500 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-6 h-6 text-slate-400 dark:text-slate-500 group-hover:text-teal-500 dark:group-hover:text-teal-400 group-hover:translate-x-1 transition-all" />
                   </h3>
-                  <p className="text-slate-500 font-medium mb-6">
+                  <p className="text-slate-500 dark:text-slate-400 font-medium mb-6">
                     Create your faculty account to manage hostel operations and oversee requests
                   </p>
 
-                  <div className="flex items-center gap-2 text-sm text-teal-600 font-bold">
+                  <div className="flex items-center gap-2 text-sm text-teal-600 dark:text-teal-400 font-bold">
                     <span>Sign up as Faculty</span>
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-teal-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-teal-400 dark:bg-teal-500/50 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </motion.button>
 
             </div>
@@ -237,26 +237,26 @@ export default function Signup() {
 
             <button
               onClick={() => setUserType(null)}
-              className="mb-8 font-bold text-slate-500 hover:text-slate-900 transition flex items-center gap-2"
+              className="mb-8 font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-2"
             >
               <ArrowRight className="w-4 h-4 rotate-180" />
               Back to selection
             </button>
 
-            <div className="bg-white rounded-[32px] shadow-xl shadow-slate-200/40 border border-slate-100/60 p-8 sm:p-12">
+            <div className="bg-white dark:bg-slate-900 rounded-[32px] shadow-xl shadow-slate-200/40 dark:shadow-none border border-slate-100/60 dark:border-slate-800 p-8 sm:p-12 transition-colors">
 
               <div className="text-center mb-8">
-                <div className={`inline-flex items-center justify-center w-16 h-16 ${userType === "student" ? "bg-emerald-100" : "bg-teal-100"} rounded-full mb-4`}>
+                <div className={`inline-flex items-center justify-center w-16 h-16 ${userType === "student" ? "bg-emerald-100 dark:bg-emerald-900/40" : "bg-teal-100 dark:bg-teal-900/40"} rounded-full mb-4`}>
                   {userType === "student" ? (
-                    <GraduationCap className="w-8 h-8 text-emerald-700" />
+                    <GraduationCap className="w-8 h-8 text-emerald-700 dark:text-emerald-400" />
                   ) : (
-                    <Users className="w-8 h-8 text-teal-700" />
+                    <Users className="w-8 h-8 text-teal-700 dark:text-teal-400" />
                   )}
                 </div>
-                <h2 className="text-3xl font-black text-slate-900 mb-2">
+                <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-2">
                   {userType === "student" ? "Student" : "Faculty"} Registration
                 </h2>
-                <p className="text-slate-500 font-medium">
+                <p className="text-slate-500 dark:text-slate-400 font-medium">
                   Fill in your details to create an account
                 </p>
               </div>
@@ -272,7 +272,7 @@ export default function Signup() {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
+                    className="w-full pl-12 pr-4 py-4 rounded-full border border-slate-200 dark:border-slate-700/50 focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 dark:focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50"
                   />
                 </div>
 
@@ -285,7 +285,7 @@ export default function Signup() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
+                    className="w-full pl-12 pr-4 py-4 rounded-full border border-slate-200 dark:border-slate-700/50 focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 dark:focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50"
                   />
                 </div>
 
@@ -298,7 +298,7 @@ export default function Signup() {
                     required
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
+                    className="w-full pl-12 pr-4 py-4 rounded-full border border-slate-200 dark:border-slate-700/50 focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 dark:focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50"
                   />
                 </div>
 
@@ -311,12 +311,12 @@ export default function Signup() {
                     required
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-12 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
+                    className="w-full pl-12 pr-12 py-4 rounded-full border border-slate-200 dark:border-slate-700/50 focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 dark:focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -331,12 +331,12 @@ export default function Signup() {
                     required
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-12 py-4 rounded-full border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 bg-slate-50"
+                    className="w-full pl-12 pr-12 py-4 rounded-full border border-slate-200 dark:border-slate-700/50 focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 dark:focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50"
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition"
                   >
                     {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -347,15 +347,15 @@ export default function Signup() {
                     type="checkbox"
                     id="terms"
                     required
-                    className="w-4 h-4 rounded border-slate-300 mt-1"
+                    className="w-4 h-4 rounded border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 mt-1"
                   />
-                  <label htmlFor="terms" className="text-sm text-slate-600">
+                  <label htmlFor="terms" className="text-sm text-slate-600 dark:text-slate-400">
                     I agree to the{" "}
-                    <a href="#" className="text-slate-900 font-semibold hover:underline">
+                    <a href="#" className="text-slate-900 dark:text-white font-semibold hover:underline">
                       Terms and Conditions
                     </a>{" "}
                     and{" "}
-                    <a href="#" className="text-slate-900 font-semibold hover:underline">
+                    <a href="#" className="text-slate-900 dark:text-white font-semibold hover:underline">
                       Privacy Policy
                     </a>
                   </label>
@@ -364,7 +364,7 @@ export default function Signup() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className={`w-full ${userType === "student" ? "bg-emerald-300 hover:bg-emerald-400 shadow-emerald-200" : "bg-teal-300 hover:bg-teal-400 shadow-teal-200"} text-emerald-950 py-4 rounded-full font-bold text-lg transition shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed`}
+                  className={`w-full ${userType === "student" ? "bg-emerald-300 dark:bg-emerald-500 hover:bg-emerald-400 dark:hover:bg-emerald-400 shadow-emerald-200 dark:shadow-emerald-900/40" : "bg-teal-300 dark:bg-teal-500 hover:bg-teal-400 dark:hover:bg-teal-400 shadow-teal-200 dark:shadow-teal-900/40"} text-emerald-950 dark:text-emerald-50 py-4 rounded-full font-bold text-lg transition shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
                   {isLoading ? "Creating Account..." : "Create Account"}
                   <ArrowRight className="w-5 h-5" />
@@ -373,15 +373,15 @@ export default function Signup() {
 
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-200"></div>
+                  <div className="w-full border-t border-slate-200 dark:border-slate-800"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white text-slate-500">Already have an account?</span>
+                  <span className="px-4 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400">Already have an account?</span>
                 </div>
               </div>
 
               <Link href="/auth/login">
-                <button className="w-full py-4 rounded-full font-bold text-slate-700 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition">
+                <button className="w-full py-4 rounded-full font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
                   Sign In
                 </button>
               </Link>
@@ -395,24 +395,24 @@ export default function Signup() {
             className="max-w-md mx-auto"
           >
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-indigo-100 rounded-3xl mb-6">
-                <Shield className="w-10 h-10 text-indigo-600" />
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-indigo-100 dark:bg-indigo-900/40 rounded-3xl mb-6 flex-shrink-0">
+                <Shield className="w-10 h-10 text-indigo-600 dark:text-indigo-400" />
               </div>
 
-              <h2 className="text-3xl font-bold text-slate-900 mb-3">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
                 Verify Your Email
               </h2>
 
-              <p className="text-slate-600">
-                We've sent a code to <span className="font-semibold text-slate-900">{formData.email}</span>
+              <p className="text-slate-600 dark:text-slate-400">
+                We've sent a code to <span className="font-semibold text-slate-900 dark:text-white">{formData.email}</span>
               </p>
             </div>
 
-            <div className="bg-white rounded-[32px] shadow-xl shadow-slate-200/40 border border-slate-100/60 p-8 sm:p-12">
+            <div className="bg-white dark:bg-slate-900 rounded-[32px] shadow-xl shadow-slate-200/40 dark:shadow-none border border-slate-100/60 dark:border-slate-800 p-8 sm:p-12 transition-colors">
               <form onSubmit={handleVerify} className="space-y-6">
 
                 <div>
-                  <label className="block text-sm font-bold text-slate-900 mb-2">
+                  <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">
                     Verification Code
                   </label>
                   <div className="relative">
@@ -420,7 +420,7 @@ export default function Signup() {
                     <input
                       type="text"
                       placeholder="Enter 6-digit code"
-                      className="w-full pl-12 pr-4 py-4 rounded-full border border-slate-200 bg-slate-50 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 text-lg font-mono tracking-wider"
+                      className="w-full pl-12 pr-4 py-4 rounded-full border border-slate-200 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-800/50 focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 dark:focus:ring-emerald-500/10 focus:outline-none transition text-slate-900 dark:text-white text-lg font-mono tracking-wider"
                       value={verificationCode}
                       onChange={(e) => setVerificationCode(e.target.value)}
                       maxLength={6}
@@ -429,11 +429,11 @@ export default function Signup() {
                   </div>
                 </div>
 
-                <div className="bg-blue-50 border-2 border-blue-100 rounded-xl p-4 flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <div className="text-sm text-blue-900">
+                <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-100 dark:border-blue-900/30 rounded-xl p-4 flex items-start gap-3 transition-colors">
+                  <CheckCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                  <div className="text-sm text-blue-900 dark:text-blue-200">
                     <p className="font-semibold mb-1">Check your inbox</p>
-                    <p className="text-blue-700">
+                    <p className="text-blue-700 dark:text-blue-300/80">
                       It may take a few minutes for the code to arrive.
                     </p>
                   </div>
@@ -442,7 +442,7 @@ export default function Signup() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-emerald-300 hover:bg-emerald-400 text-emerald-950 py-4 rounded-full font-bold text-lg transition shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-emerald-300 dark:bg-emerald-500 hover:bg-emerald-400 dark:hover:bg-emerald-400 text-emerald-950 dark:text-emerald-50 py-4 rounded-full font-bold text-lg transition shadow-xl hover:-translate-y-1 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? "Verifying..." : "Verify & Login"}
                   <ArrowRight className="w-5 h-5" />

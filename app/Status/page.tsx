@@ -119,19 +119,19 @@ export default function StatusPage() {
 
   return (
 
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
 
       <Navbar />
 
       <div className="max-w-5xl mx-auto px-6 py-10">
 
-        <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-8 text-slate-900">
+        <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-8 text-slate-900 dark:text-white">
           My Requests
         </h1>
 
         {loading && (
 
-          <div className="text-center py-10 text-slate-600">
+          <div className="text-center py-10 text-slate-600 dark:text-slate-400">
             Loading complaints...
           </div>
 
@@ -167,16 +167,16 @@ function Section({ title, complaints }: any) {
 
   return (
 
-    <div className="mb-10 text-slate-900">
+    <div className="mb-10 text-slate-900 dark:text-slate-100">
 
-      <h2 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
+      <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 flex items-center gap-3">
         <div className="w-2 h-8 bg-emerald-400 rounded-full"></div>
         {title}
       </h2>
 
       {complaints.length === 0 && (
 
-        <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm text-slate-500 text-center font-medium">
+        <div className="bg-white dark:bg-slate-900/50 p-8 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-sm text-slate-500 dark:text-slate-400 text-center font-medium">
           No requests found
         </div>
 
@@ -191,30 +191,30 @@ function Section({ title, complaints }: any) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="bg-white p-6 sm:p-8 rounded-[32px] border border-slate-100/80 shadow-sm hover:border-[#BAF1D4] hover:shadow-xl hover:shadow-[#BAF1D4]/40 transition-all duration-300"
+            className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-[32px] border border-slate-100/80 dark:border-slate-800/80 shadow-sm dark:shadow-none hover:border-[#BAF1D4] dark:hover:border-emerald-500/50 hover:shadow-xl hover:shadow-[#BAF1D4]/40 dark:hover:shadow-emerald-900/20 transition-all duration-300"
           >
 
             <div className="flex justify-between items-start">
 
               <div>
 
-                <div className="font-black text-xl text-slate-900 tracking-tight">
+                <div className="font-black text-xl text-slate-900 dark:text-white tracking-tight">
                   {complaint.title}
                 </div>
 
-                <div className="text-sm text-slate-500 mt-1">
+                <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                   ID: {complaint.id}
                 </div>
 
                 {complaint.block && (
 
-                  <div className="text-sm text-slate-600 mt-1">
+                  <div className="text-sm text-slate-600 dark:text-slate-300 mt-1">
                     {complaint.block} — Room {complaint.room}
                   </div>
 
                 )}
 
-                <div className="text-sm text-slate-500 mt-1">
+                <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                   Submitted: {complaint.createdAt}
                 </div>
 
@@ -246,19 +246,19 @@ function StatusBadge({ status }: { status: string }) {
 
     pending: {
       label: "Pending",
-      color: "bg-amber-50 text-amber-600 border border-amber-100/50",
+      color: "bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 border border-amber-100/50 dark:border-amber-900/30",
       icon: Clock
     },
 
     "in-progress": {
       label: "In Progress",
-      color: "bg-blue-50 text-blue-600 border border-blue-100/50",
+      color: "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100/50 dark:border-blue-900/30",
       icon: TrendingUp
     },
 
     completed: {
       label: "Completed",
-      color: "bg-[#E5F7EB] text-[#059669] border border-[#BAF1D4]/50",
+      color: "bg-[#E5F7EB] dark:bg-emerald-900/30 text-[#059669] dark:text-emerald-400 border border-[#BAF1D4]/50 dark:border-emerald-800/50",
       icon: CheckCircle
     }
 
