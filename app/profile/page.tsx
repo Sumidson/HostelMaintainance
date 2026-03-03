@@ -10,18 +10,15 @@ import {
   MapPin,
   Calendar,
   Shield,
-  Edit,
-  Settings,
-  LogOut,
   Wrench,
-  Sparkles,
   Clock,
   CheckCircle,
-  TrendingUp,
-  History
+  AlertCircle,
+  FileText
 } from "lucide-react";
 
 import Navbar from "../navbar";
+import { getComplaints } from "../lib/api";
 
 import {
   fetchUserAttributes,
@@ -31,66 +28,87 @@ import {
 export default function ProfilePage() {
 
   const [user, setUser] = useState<any>(null);
-
   const [loading, setLoading] = useState(true);
+  const [complaints, setComplaints] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<"overview" | "history">("overview");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const [activeTab, setActiveTab] =
-    useState<"overview" | "history">("overview");
+  const [stats, setStats] = useState({
+    total: 0,
+    completed: 0,
+    active: 0
+  });
 
   /* =========================
-     LOAD USER FROM COGNITO
+     LOAD USER + COMPLAINTS
   ========================= */
 
   useEffect(() => {
-
-    loadUser();
-
+    loadUserAndComplaints();
   }, []);
 
-  async function loadUser() {
+  async function loadUserAndComplaints() {
 
     try {
-
       const attributes = await fetchUserAttributes();
+      const rawEmail = attributes.email || "";
+      const email = rawEmail.toLowerCase().trim();
+
+      let data: any[] = [];
+      try {
+        data = await getComplaints();
+      } catch (err: any) {
+        console.error("Profile API Error:", err);
+        setErrorMsg("Your history could not be loaded. Please ensure there are no corrupted items in your database.");
+      }
+
+      // filter only this user's complaints
+      const myComplaints = data.filter(
+        (c: any) =>
+          (c.userEmail && c.userEmail.toLowerCase().trim() === email) ||
+          (c.email && c.email.toLowerCase().trim() === email)
+      );
+
+      setComplaints(myComplaints);
+
+      const completed = myComplaints.filter(
+        (c: any) => c.status === "COMPLETED"
+      ).length;
+
+      const active = myComplaints.filter(
+        (c: any) =>
+          c.status === "OPEN" ||
+          c.status === "IN_PROGRESS"
+      ).length;
+
+      setStats({
+        total: myComplaints.length,
+        completed,
+        active
+      });
 
       setUser({
-
         name:
           attributes.name ||
           attributes.email?.split("@")[0] ||
           "User",
-
-        email:
-          attributes.email || "",
-
+        email: rawEmail,
         phone:
-          attributes.phone_number || "Not provided",
-
+          attributes.phone_number ||
+          "Not provided",
         studentId:
-          attributes.sub?.slice(0, 8) || "N/A",
-
-        block: "Not set",
-
-        room: "Not set",
-
-        joinedDate: "—",
-
-        totalRequests: 0,
-
-        completedRequests: 0,
-
-        activeRequests: 0
-
+          attributes.sub?.slice(0, 8) ||
+          "N/A",
+        block: "Hostel",
+        room: "—",
+        joinedDate: "—"
       });
 
     } catch (error) {
-
-      console.error(error);
-
+      console.error("Cognito Auth Error:", error);
+      setErrorMsg("Failed to authenticate user profile.");
     } finally {
-
       setLoading(false);
-
     }
 
   }
@@ -100,44 +118,39 @@ export default function ProfilePage() {
   ========================= */
 
   async function handleLogout() {
-
     await signOut();
-
-    window.location.href = "/login";
-
+    window.location.href = "/auth/login";
   }
 
-  if (loading) {
-
+  if (loading)
     return (
-
-      <div className="min-h-screen flex items-center justify-center">
-
-        Loading profile...
-
+      <div className="min-h-screen flex items-center justify-center dark:bg-slate-950 dark:text-white transition-colors">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="w-12 h-12 bg-emerald-200 dark:bg-emerald-900/50 rounded-full"></div>
+          <div className="text-slate-500 font-bold tracking-wide">Loading Profile...</div>
+        </div>
       </div>
-
     );
 
-  }
-
-  if (!user) {
-
+  if (!user)
     return (
-
-      <div className="min-h-screen flex items-center justify-center">
-
-        Failed to load profile
-
+      <div className="min-h-screen flex flex-col items-center justify-center dark:bg-slate-950 dark:text-white transition-colors">
+        <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
+        <h1 className="text-2xl font-bold mb-2">Login Required</h1>
+        <p className="text-slate-500 mb-6 text-center max-w-sm">
+          {errorMsg || "You need to be signed in to view your profile and request history."}
+        </p>
+        <button
+          onClick={() => window.location.href = "/auth/login"}
+          className="bg-emerald-500 text-white px-8 py-3 rounded-full font-bold shadow-lg"
+        >
+          Go to Login
+        </button>
       </div>
-
     );
-
-  }
 
   return (
-
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors">
 
       <Navbar />
 
@@ -146,194 +159,162 @@ export default function ProfilePage() {
         <div className="grid lg:grid-cols-3 gap-8">
 
           {/* PROFILE CARD */}
-
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-slate-900 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none overflow-hidden transition-colors"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="bg-white dark:bg-slate-900 rounded-[32px] p-8 shadow-xl shadow-slate-200/40 dark:shadow-none border border-slate-100 dark:border-slate-800 transition-colors"
           >
 
-            <div className="bg-gradient-to-br from-[#BAF1D4] dark:from-emerald-900/40 to-emerald-300 dark:to-emerald-800/40 p-8 sm:p-12 text-[#064E3B] dark:text-emerald-50 text-center relative overflow-hidden">
-
-              <div className="w-24 h-24 bg-white dark:bg-slate-800/80 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm dark:shadow-none">
-
-                <User className="w-12 h-12 text-[#059669] dark:text-emerald-400" />
-
+            <div className="text-center mb-8">
+              <div className="w-24 h-24 mx-auto mb-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-full flex items-center justify-center border border-emerald-100 dark:border-emerald-800/50">
+                <User className="w-12 h-12 text-emerald-600 dark:text-emerald-400" />
               </div>
-
-              <h2 className="text-3xl font-black tracking-tight mt-2">
-
+              <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
                 {user.name}
-
               </h2>
-
-              <p className="text-[#064E3B]/80 dark:text-emerald-200 font-bold mt-1">
-
-                ID: {user.studentId}
-
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mt-1">
+                Student ID: {user.studentId}
               </p>
-
             </div>
 
-            <div className="p-6 space-y-4">
-
-              <DetailRow
-                icon={<Mail className="w-5 h-5" />}
-                label="Email"
-                value={user.email}
-              />
-
-              <DetailRow
-                icon={<Phone className="w-5 h-5" />}
-                label="Phone"
-                value={user.phone}
-              />
-
-              <DetailRow
-                icon={<Building className="w-5 h-5" />}
-                label="Block"
-                value={user.block}
-              />
-
-              <DetailRow
-                icon={<MapPin className="w-5 h-5" />}
-                label="Room"
-                value={user.room}
-              />
-
-              <DetailRow
-                icon={<Calendar className="w-5 h-5" />}
-                label="Joined"
-                value={user.joinedDate}
-              />
-
+            <div className="space-y-2">
+              <DetailRow icon={<Mail className="dark:text-emerald-400" />} label="Email Address" value={user.email} />
+              <DetailRow icon={<Phone className="dark:text-emerald-400" />} label="Phone Number" value={user.phone} />
+              <DetailRow icon={<Building className="dark:text-emerald-400" />} label="Hostel Block" value={user.block} />
+              <DetailRow icon={<MapPin className="dark:text-emerald-400" />} label="Room Number" value={user.room} />
+              <DetailRow icon={<Calendar className="dark:text-emerald-400" />} label="Joined Date" value={user.joinedDate} />
             </div>
 
-            <div className="p-8 sm:px-10 space-y-4">
-
-              <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-[#BAF1D4] dark:bg-emerald-500/20 hover:bg-emerald-300 dark:hover:bg-emerald-500/30 text-[#064E3B] dark:text-emerald-400 rounded-full font-bold transition shadow-sm hover:shadow-md hover:-translate-y-0.5">
-
-                <Edit className="w-4 h-4" />
-
-                Edit Profile
-
-              </button>
-
-              <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full font-bold transition">
-
-                <Settings className="w-4 h-4" />
-
-                Settings
-
-              </button>
-
-              <button
-                onClick={handleLogout}
-                className="w-full flex items-center justify-center gap-2 px-6 py-4 border border-red-200 dark:border-red-900/30 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 hover:text-red-600 dark:hover:text-red-400 rounded-full font-bold transition mt-2"
-              >
-
-                <LogOut className="w-4 h-4" />
-
-                Log Out
-
-              </button>
-
-            </div>
+            <button
+              onClick={handleLogout}
+              className="w-full mt-8 bg-red-50 hover:bg-red-100 dark:bg-red-500/10 dark:hover:bg-red-500/20 text-red-600 dark:text-red-400 py-3.5 rounded-full transition-colors font-bold tracking-wide"
+            >
+              Sign Out
+            </button>
 
           </motion.div>
 
           {/* RIGHT SIDE */}
-
           <div className="lg:col-span-2 space-y-6">
 
-            {/* STATS */}
-
-            <div className="grid md:grid-cols-3 gap-6">
-
-              <StatCard
-                icon={<Wrench />}
-                label="Total Requests"
-                value={user.totalRequests}
-              />
-
-              <StatCard
-                icon={<CheckCircle />}
-                label="Completed"
-                value={user.completedRequests}
-              />
-
-              <StatCard
-                icon={<Clock />}
-                label="Active"
-                value={user.activeRequests}
-              />
-
+            {/* TABS */}
+            <div className="flex gap-2 border-b-2 border-slate-100 dark:border-slate-800 pb-0">
+              <button
+                onClick={() => setActiveTab("overview")}
+                className={`px-6 py-4 font-black text-sm uppercase tracking-wider transition-colors border-b-2 -mb-[2px] ${activeTab === "overview" ? "text-emerald-600 dark:text-emerald-400 border-emerald-600 dark:border-emerald-400" : "text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border-transparent"}`}
+              >
+                Overview
+              </button>
+              <button
+                onClick={() => setActiveTab("history")}
+                className={`px-6 py-4 font-black text-sm uppercase tracking-wider transition-colors border-b-2 -mb-[2px] ${activeTab === "history" ? "text-emerald-600 dark:text-emerald-400 border-emerald-600 dark:border-emerald-400" : "text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border-transparent"}`}
+              >
+                Request History
+              </button>
             </div>
 
-            {/* QUICK ACTIONS */}
-
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none transition-colors">
-
-              <h3 className="text-2xl font-black mb-6 tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
-                <div className="w-2 h-8 bg-emerald-400 rounded-full"></div>
-                Quick Actions
-
-              </h3>
-
-              <div className="grid md:grid-cols-2 gap-4">
-
-                <a
-                  href="/Maintenance"
-                  className="bg-emerald-50 dark:bg-emerald-900/20 text-[#059669] dark:text-emerald-400 p-8 rounded-[24px] hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition flex flex-col items-center justify-center gap-3 text-center font-bold border border-emerald-100 dark:border-emerald-900/30"
-                >
-                  <Wrench className="w-8 h-8" />
-                  New Maintenance Request
-                </a>
-
-                <a
-                  href="/cleaning"
-                  className="bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400 p-8 rounded-[24px] hover:bg-teal-100 dark:hover:bg-teal-900/40 transition flex flex-col items-center justify-center gap-3 text-center font-bold border border-teal-100 dark:border-teal-900/30"
-                >
-                  <Sparkles className="w-8 h-8" />
-                  Request Cleaning
-                </a>
-
+            {errorMsg && (
+              <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-4 rounded-xl flex items-start gap-3 text-sm font-medium border border-red-100 dark:border-red-900/30">
+                <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                <p>{errorMsg}</p>
               </div>
+            )}
 
-            </div>
+            {activeTab === "overview" ? (
+              <motion.div
+                key="overview"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-6 pt-4"
+              >
+                {/* STATS */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            {/* ACCOUNT STATUS */}
+                  <StatCard
+                    icon={<Wrench className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />}
+                    label="Total Requests"
+                    value={stats.total}
+                  />
 
-            <div className="bg-[#E5F7EB] dark:bg-emerald-900/20 border border-[#BAF1D4] dark:border-emerald-800/50 p-8 rounded-[32px] transition-colors">
+                  <StatCard
+                    icon={<CheckCircle className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />}
+                    label="Completed"
+                    value={stats.completed}
+                  />
 
-              <div className="flex gap-4 items-center">
-
-                <div className="p-3 bg-white dark:bg-emerald-900/40 rounded-full">
-                  <Shield className="text-[#059669] dark:text-emerald-400 w-8 h-8" />
-                </div>
-
-                <div>
-
-                  <h4 className="font-black text-xl text-slate-900 dark:text-white tracking-tight">
-
-                    Account Verified
-
-                  </h4>
-
-                  <p className="text-slate-500 dark:text-slate-400 font-medium">
-
-                    Logged in securely
-
-                  </p>
+                  <StatCard
+                    icon={<Clock className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />}
+                    label="Active"
+                    value={stats.active}
+                  />
 
                 </div>
 
-              </div>
+                {/* ACCOUNT VERIFIED */}
+                <div className="bg-[#BAF1D4]/40 dark:bg-emerald-900/20 border border-[#BAF1D4]/80 dark:border-emerald-900/30 p-8 rounded-[32px] flex items-center gap-6 transition-colors shadow-sm">
 
-            </div>
+                  <div className="p-4 bg-white dark:bg-emerald-800/40 rounded-full shadow-sm">
+                    <Shield className="text-[#059669] dark:text-emerald-400 w-8 h-8" />
+                  </div>
+
+                  <div>
+                    <h4 className="font-black text-2xl text-slate-900 dark:text-white tracking-tight">
+                      Account Verified
+                    </h4>
+                    <p className="text-slate-600 dark:text-emerald-100/60 font-medium mt-1">
+                      Your identity is secured by Hostel Auth Protocols.
+                    </p>
+                  </div>
+
+                </div>
+
+              </motion.div>
+            ) : (
+              <motion.div
+                key="history"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-4 pt-4"
+              >
+                {complaints.length === 0 ? (
+                  <div className="bg-white dark:bg-slate-900 p-12 rounded-[32px] border border-slate-100 dark:border-slate-800 text-center transition-colors shadow-sm">
+                    <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <FileText className="w-8 h-8 text-slate-400 dark:text-slate-500" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No History</h3>
+                    <p className="text-slate-500 dark:text-slate-400 font-medium">You haven't made any requests yet.</p>
+                  </div>
+                ) : (
+                  complaints.map((c: any, index: number) => (
+                    <div key={c.complaintID || index} className="bg-white dark:bg-slate-900 p-6 rounded-[24px] border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all hover:border-emerald-200 dark:hover:border-emerald-800/50 hover:shadow-md">
+
+                      <div>
+                        <div className="font-black text-lg text-slate-900 dark:text-white tracking-tight">{c.title || "Untitled Request"}</div>
+                        <div className="text-sm text-slate-500 dark:text-slate-400 mt-2 flex flex-col gap-1 font-medium">
+                          <span>ID: <span className="text-slate-600 dark:text-slate-300">{c.complaintID}</span></span>
+                          <span>Date: <span className="text-slate-600 dark:text-slate-300">{c.createdAt ? new Date(c.createdAt).toLocaleString() : "Unknown"}</span></span>
+                        </div>
+                      </div>
+
+                      <div className={`px-4 py-2 text-xs font-black rounded-full uppercase tracking-wider ${c.status === "COMPLETED" ? "bg-[#E5F7EB] text-[#059669] dark:bg-emerald-900/30 dark:text-emerald-400" :
+                        c.status === "IN_PROGRESS" ? "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400" :
+                          "bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400"
+                        }`}>
+                        {c.status || "PENDING"}
+                      </div>
+
+                    </div>
+                  ))
+                )}
+              </motion.div>
+            )}
 
           </div>
 
+        </div>
+
+        <div className="mt-12 text-center text-sm font-medium text-slate-400 dark:text-slate-500 pb-8">
+          Made by sumidson
         </div>
 
       </div>
@@ -350,24 +331,19 @@ function DetailRow({ icon, label, value }: any) {
 
   return (
 
-    <div className="flex gap-3">
+    <div className="flex gap-4 p-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-2xl transition-colors items-center">
 
-      {icon}
+      <div className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 dark:text-slate-400">
+        {icon}
+      </div>
 
-      <div>
-
-        <div className="text-xs text-slate-500 dark:text-slate-400">
-
+      <div className="flex-1">
+        <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
           {label}
-
         </div>
-
-        <div className="font-semibold text-slate-900 dark:text-slate-100">
-
+        <div className="font-semibold text-slate-900 dark:text-slate-200">
           {value}
-
         </div>
-
       </div>
 
     </div>
@@ -380,22 +356,18 @@ function StatCard({ icon, label, value }: any) {
 
   return (
 
-    <div className="bg-white dark:bg-slate-900 p-8 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none flex flex-col items-center text-center gap-3 transition-colors">
+    <div className="bg-white dark:bg-slate-900 p-8 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col items-center justify-center transition-colors">
 
-      <div className="text-slate-400 dark:text-slate-500">
+      <div className="w-14 h-14 bg-[#BAF1D4]/30 dark:bg-emerald-900/20 rounded-full flex items-center justify-center mb-4">
         {icon}
       </div>
 
-      <div className="text-4xl font-black text-slate-900 dark:text-white">
-
+      <div className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">
         {value}
-
       </div>
 
-      <div className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-
+      <div className="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase mt-2 tracking-widest">
         {label}
-
       </div>
 
     </div>

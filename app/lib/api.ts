@@ -1,9 +1,8 @@
-import { fetchAuthSession } from "aws-amplify/auth";
-
+import { fetchAuthSession, fetchUserAttributes } from "aws-amplify/auth";
 /* ============================================
-   API BASE URL (NO /$default needed)
+   API BASE URL (Next.js route.ts backend)
 ============================================ */
-const API_BASE = "/api";
+const API_BASE = "/api/complaints";
 
 
 /* ============================================
@@ -11,21 +10,32 @@ const API_BASE = "/api";
 ============================================ */
 async function getToken(): Promise<string> {
 
-  const session = await fetchAuthSession();
+  try {
 
-  const token = session.tokens?.idToken?.toString();
+    const session = await fetchAuthSession();
 
-  if (!token) {
-    throw new Error("User not authenticated");
+    const token =
+      session.tokens?.idToken?.toString() ||
+      session.tokens?.accessToken?.toString();
+
+    if (!token) {
+      throw new Error("User not authenticated");
+    }
+
+    return token;
+
+  } catch (error) {
+
+    console.error("Token error:", error);
+
+    throw error;
   }
-
-  return token;
 }
 
 
 /* ============================================
    CREATE COMPLAINT
-   POST /complaints
+   POST /api/complaints
 ============================================ */
 export async function createComplaint(data: {
   title: string;
@@ -35,19 +45,29 @@ export async function createComplaint(data: {
 
   const token = await getToken();
 
-  const response = await fetch(`${API_BASE}/complaints`, {
+  let userEmail = "";
+  try {
+    const attributes = await fetchUserAttributes();
+    userEmail = attributes.email || "";
+  } catch (e) {
+    console.error("Could not fetch user attributes", e);
+  }
+
+  const response = await fetch(API_BASE, {
 
     method: "POST",
 
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
 
     body: JSON.stringify({
-      title: data.title,
-      description: data.description,
+      title: data.title || "Untitled",
+      description: data.description || "No description provided",
       status: data.status || "OPEN",
+      userEmail: userEmail,
+      email: userEmail
     }),
 
   });
@@ -65,21 +85,20 @@ export async function createComplaint(data: {
 }
 
 
-
 /* ============================================
    GET ALL COMPLAINTS
-   GET /complaints
+   GET /api/complaints
 ============================================ */
 export async function getComplaints() {
 
   const token = await getToken();
 
-  const response = await fetch(`${API_BASE}/complaints`, {
+  const response = await fetch(API_BASE, {
 
     method: "GET",
 
     headers: {
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
 
   });
@@ -97,10 +116,9 @@ export async function getComplaints() {
 }
 
 
-
 /* ============================================
    UPDATE COMPLAINT STATUS
-   PATCH /complaints/{id}
+   PATCH /api/complaints/{id}
 ============================================ */
 export async function updateComplaintStatus(
   complaintID: string,
@@ -109,23 +127,20 @@ export async function updateComplaintStatus(
 
   const token = await getToken();
 
-  const response = await fetch(
-    `${API_BASE}/complaints/${complaintID}`,
-    {
+  const response = await fetch(`${API_BASE}/${complaintID}`, {
 
-      method: "PATCH",
+    method: "PATCH",
 
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
 
-      body: JSON.stringify({
-        status,
-      }),
+    body: JSON.stringify({
+      status,
+    }),
 
-    }
-  );
+  });
 
   if (!response.ok) {
 

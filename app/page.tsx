@@ -389,6 +389,9 @@ export default function Home() {
               <a href="#" className="hover:text-slate-900 dark:hover:text-white transition">Support</a>
             </div>
           </div>
+          <div className="mt-8 text-center text-sm font-medium text-slate-400 dark:text-slate-500">
+            Made by sumidson
+          </div>
         </div>
       </footer>
     </div>
